@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="./assets/img/logito.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/bank.css">
+    
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="layout d-flex flex-column" id="app" >
+      <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#"><img src="./assets/img/logito.png" class="navbar__logo"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav d-flex justify-content-evenly w-100">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="#">Accounts</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Cards</a>
+                </li>
+
+                 <li class="nav-item">
+                  <a class="nav-link" href="#">Loans</a>
+                </li> 
+
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Transactions</a>
+                </li>
+
+
+                 <li class="nav-item">
+                  <a class="nav-link" href="#">quit</a>
+                </li>
+               
+              </ul>
+              
+            </div>
+          </div>
+        </nav>
+
+        <div id="carouselExampleIndicators" class="carousel slide">
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          </div>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="./assets/img/banner1.png" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./assets/img/banner2.png" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./assets/img/banner3.png" class="d-block w-100" alt="...">
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next " type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>  
+
+    
+     </header>
+     
+     
+   
+
+      <main class="flex-grow-1">
+        <h1>Welcome, {{client.lastName +" "+ client.name}} </h1>
+
+
+       <div class="cards__container">
+
+          
+
+          <div v-for="account of accounts" class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+              <div class="col-md-4 img__cardC">
+                <img src="./assets/img/account_img.png" class="img-fluid rounded-start bg-primary" alt="" >
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">{{account.number}}</h5>
+                  <p class="card-text ">Monto:<span style="font-size:40px;"> ${{account.balance}}</span></p>
+                
+                 
+
+                  <small class="text-body-secondary">  
+                    
+                   
+                      <div class="d-flex justify-content-around" style="align-items: end;">
+                      <p>Fecha de creacion:</p>
+                      <p>{{account.creationDate}}</p>
+                      <a :href="`http://localhost:8080/web/account.html?id=${account.id}`" class="btn btn-dark">Details</a>
+                    </div>
+                  </small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+         
+
+          
+
+       
+        </div>
+  
+
+      </main>
+
+
+ 
+
+  <footer>
+    <img src="" alt="">
+    <img src="" alt="">
+    <img src="" alt="">
+    <p>All rights reserved</p>
+  </footer>
+
+
+    </div>
+
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script src="./assets/accounts-script.js"></script>
+</html>
