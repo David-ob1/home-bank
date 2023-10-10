@@ -1,0 +1,70 @@
+
+.layout{
+    min-height: 100vh;
+     background-color: aquamarine; /*#008a81 */
+    margin: 0;
+    padding:0;
+}
+
+.navbar__logo{
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+}
+
+.cards__container{
+    margin-top: 2rem;
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content:space-evenly;
+    
+
+}
+
+.account__card{
+    width: 23rem;
+    margin: 1rem;
+}
+
+.account__details{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+.transaction__details{
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    gap:1rem;
+   
+
+}
+
+
+ .debit{
+    color:tomato !important;
+
+   
+}
+
+.credit {
+    color:#008a81 !important;
+
+}
+
+.the__tbody>tr {
+   height: 1rem!important ;
+}
+/* 
+.img__cardC{
+    height: 500px;
+} */
+
+footer{
+    background-color: #008a81;
+    color: white;
+}
