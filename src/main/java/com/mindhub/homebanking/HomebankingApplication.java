@@ -1,12 +1,7 @@
 package com.mindhub.homebanking;
 
-import com.mindhub.homebanking.models.Account;
-import com.mindhub.homebanking.models.Client;
-import com.mindhub.homebanking.models.Transaction;
-import com.mindhub.homebanking.models.TransactionType;
-import com.mindhub.homebanking.repositories.AccountRepository;
-import com.mindhub.homebanking.repositories.ClientRepository;
-import com.mindhub.homebanking.repositories.TransactionRepository;
+import com.mindhub.homebanking.models.*;
+import com.mindhub.homebanking.repositories.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static com.mindhub.homebanking.models.TransactionType.*;
 
@@ -27,7 +23,7 @@ public class HomebankingApplication {
 	}
 
 	@Bean
-	public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository, TransactionRepository transactionRepository){
+	public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository, TransactionRepository transactionRepository, LoanRepository loanRepository, ClientLoanRepository clientLoanRepository ){
 		return  args ->{
 			Client client1 = new Client("Melba","Morel","melba@mindhub.com");
 
@@ -68,10 +64,40 @@ public class HomebankingApplication {
 			transactionRepository.save(transactionC1C);
 
 
-			//Transaction transactionC2A = new Transaction(DEBIT, -100,"bed purchase",LocalDateTime.now());
+			List<Integer> paymentMortgage = List.of(12,24,36,48,60);
+			List<Integer> paymentPersonal = List.of(6,12,24);
+			List<Integer> paymentAutomotive = List.of(6,12,24,36);
+
+			Loan loanA = new Loan("Mortgage",500000, paymentMortgage);
+			Loan loanB = new Loan("Personal",100000, paymentPersonal);
+			Loan loanC = new Loan("Automotive",300000, paymentAutomotive);
+
+			loanRepository.save(loanA);
+			loanRepository.save(loanB);
+			loanRepository.save(loanC);
+
+			ClientLoan client1LoanA = new ClientLoan(400000, 60);
+			ClientLoan client1LoanB = new ClientLoan(50000, 12);
+
+			ClientLoan client2LoanA = new ClientLoan(100000,24);
+			ClientLoan client2LoanB = new ClientLoan(200000, 36);
+
+			client1.addClientLoan(client1LoanA);
+			loanA.addClientLoan(client1LoanA);
+			clientLoanRepository.save(client1LoanA);
 
 
-			//			Transaction transactionC2A = new Transaction(DEBIT, -100,"bed purchase")
+			client1.addClientLoan(client1LoanB);
+			loanC.addClientLoan(client1LoanB);
+			clientLoanRepository.save(client1LoanB);
+
+			client2.addClientLoan(client2LoanA);
+			loanC.addClientLoan(client2LoanA);
+			clientLoanRepository.save(client2LoanA);
+
+			client2.addClientLoan(client2LoanB);
+			loanB.addClientLoan(client2LoanB);
+			clientLoanRepository.save(client2LoanB);
 
 
 

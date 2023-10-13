@@ -3,8 +3,8 @@ const { createApp } = Vue
   createApp({
     data() {
       return {
-        account:{},
-       transactions:{}
+        accounts:{},
+        transactions:{}
       
       }
     },

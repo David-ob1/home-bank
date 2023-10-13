@@ -121,7 +121,32 @@
 
        
         </div>
-  
+        
+        <div>
+
+          <table class="table w-100" v-if="loans.legth != 0">
+            <thead>
+                <tr>
+                    <th scope="col">Type loan</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Payments</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="loan of loans">
+                    <td>{{loan.name}}</td>
+                    <td>${{new
+                        Intl.NumberFormat("de-DE").format(loan.amount)}}</td>
+                    <td>{{loan.payment}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 v-else>you have no loans</h2>
+
+        </div>
+
+
 
       </main>
 

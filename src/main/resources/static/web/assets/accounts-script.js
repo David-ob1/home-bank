@@ -4,7 +4,8 @@ const { createApp } = Vue
     data() {
       return {
         accounts:[],
-        client:{}
+        client:{},
+        loans:[]
       
       }
     },
@@ -20,6 +21,8 @@ const { createApp } = Vue
 
         this.accounts = this.client.accounts
         console.log(this.accounts)
+
+        this.loans = this.client.loans
      })
     },
 

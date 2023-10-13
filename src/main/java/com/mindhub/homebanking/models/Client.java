@@ -4,7 +4,9 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity //creamos tabla en BD con los datos de esta clase
 
@@ -17,9 +19,14 @@ public class Client {
 
     private String name,lastName, mail;
 
-
     @OneToMany(mappedBy = "client" , fetch = FetchType.EAGER)
     private Set<Account> accounts = new HashSet<>();
+
+    @OneToMany(mappedBy = "client" , fetch = FetchType.EAGER)
+    private Set<ClientLoan> clientLoans = new HashSet<>();
+
+
+
 
     public Client() {
     }
@@ -36,6 +43,7 @@ public class Client {
 
 
 
+
     public Client(String name,String lastName,String mail) {
         this.name = name;
         this.lastName = lastName;
@@ -47,7 +55,15 @@ public class Client {
     }
 
 
+
     // comportamientos
+
+
+    public Set<ClientLoan> getClientLoans() {
+        return clientLoans;
+    }
+
+
 
     public String getName() {
         return name;
@@ -88,8 +104,20 @@ public class Client {
         //add es de colecciones
     }
 
+    public void addClientLoan(ClientLoan clientLoan){
+        clientLoan.setClient(this);
+        this.clientLoans.add(clientLoan);
+
+    }
+
+
+
     public Long getId() {
         return id;
+    }
+
+    public List<Loan> getLoans() {
+        return clientLoans.stream().map(loans -> loans.getLoan()).collect(Collectors.toList());
     }
 
 }
