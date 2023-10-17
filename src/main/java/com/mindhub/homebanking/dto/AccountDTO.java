@@ -17,7 +17,6 @@ public class AccountDTO {
 
 
     public AccountDTO(Account account){
-
         id = account.getId();
         number = account.getNumber();
         creationDate = account.getCreationDate();
@@ -26,6 +25,7 @@ public class AccountDTO {
                 .stream()
                 .map(transaction -> new transactionDTO(transaction))
                 .collect(Collectors.toList());
+
     }
 
     public long getId() {

@@ -22,10 +22,10 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav d-flex justify-content-evenly w-100">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Accounts</a>
+                            <a class="nav-link active" aria-current="page" href="./accounts.html">Accounts</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Cards</a>
+                            <a class="nav-link" href="./cards.html">Cards</a>
                         </li>
 
                         <li class="nav-item">
@@ -56,30 +56,35 @@
         <h1>Welcome, Melba </h1>
 
 
-        <div class="cards__container">
+       
 
-            <div  v-for="account of accounts" class="card text-bg-primary mb-3 account__card" >
-                <div class="card-header"> numero de cuenta: <span class="user__number">{{account.number}}</span></div>
-                <div class="card-body ">
-                    <h5 class="card-title">Monto:<span> ${{account.balance}}</span></h5>
-                    <div class="d-flex justify-content-around">
-                        <p>Fecha de creacion:</p>
-                        <p>{{account.creationDate}}</p>
-                    </div>
-                </div>
-            </div>
+        
 
+            <table class="table table-responsive">
+                <thead>
+                    <tr>
+                        <th scope="col">Type</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
 
-
-
-
+                    <tr v-for="transaction of transactions">
+                        <td :class=" transaction.type == 'DEBIT' ? 'debit fw-bold' : 'credit fw-bold'">{{transaction.type}}</td>
+                        <td>{{transaction.amount}}</td>
+                        <td>{{transaction.date}}</td>
+                        <td>{{transaction.description}}</td>
+                    </tr>
+                </tbody>
+            </table>
 
 
         </div>
 
 
     </main>
-
 
 
 

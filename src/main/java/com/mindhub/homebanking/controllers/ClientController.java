@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @RestController
-@RequestMapping("/api")
+    @RequestMapping("/api")
 public class ClientController {
 @Autowired
     private ClientRepository clientRepository;
@@ -31,7 +31,6 @@ public class ClientController {
     public ClientDTO getClient(@PathVariable Long id){
 //no se rompe la aplicacion si no se cumple
         ClientDTO foundClient = clientRepository.findById(id).map(client -> new ClientDTO(client)).orElse(null);
-
         return foundClient;
     }
 

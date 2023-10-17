@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/bank.css">
+
+    <title>Cards</title>
+</head>
+<body>
+    <div class="layout d-flex flex-column" id="app" >
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#"><img src="./assets/img/logito.png" class="navbar__logo"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav d-flex justify-content-evenly w-100">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="./accounts.html">Accounts</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./cards.html">Cards</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Loans</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Transactions</a>
+                        </li>
+
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">quit</a>
+                        </li>
+
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+
+    </header>
+
+    <main class="flex-grow-1">
+
+
+
+        <div class="d-flex justify-content-around flex-wrap" style="padding: 3rem;">
+            <div class="d-flex flex-column">
+                <h3 class="h3-cards">Debit Cards</h3>
+                <div class="container-ext d-flex justify-content-around">
+                    <div v-if="debitCards.length !== 0" class="card-ext" v-for="card of debitCards">
+                        <div class="card-inner-ext">
+                            <div class="front-ext" :class="{
+                            'card-gold-front': card.color === 'GOLD',
+                            'card-silver-front': card.color === 'SILVER',
+                            'card-titanium-front': card.color === 'TITANIUM'}">
+                                <img src="https://i.ibb.co/PYss3yv/map.png" class="map-img-ext">
+                                <div class="row-ext">
+                                    <img src="https://i.ibb.co/G9pDnYJ/chip.png" style="height: 3rem;">
+                                    <div class="d-flex flex-column align-items-end">
+                                        <img src="https://i.ibb.co/WHZ3nRJ/visa.png" style="height: 2rem;">
+                                        <p>Debit</p>
+                                    </div>
+                                </div>
+                                <div class="row-ext card-no-ext ">
+                                    <p style="letter-spacing: 2px;">{{card.number}}</p>
+                                </div>
+                                <div class="row-ext card-holder-ext  text-align-center">
+                                    <p>CARD HOLDER</p>
+                                    <p>VALID FROM</p>
+                                    <p>GOOD THRU</p>
+                                </div>
+                                <div class="row-ext name-ext text-align-center">
+                                    <p>{{card.cardholder}}</p>
+                                    <p>{{card.fromDate}}</p>
+                                    <p>{{card.thruDate}}</p>
+                                </div>
+                            </div>
+                            <div class="back-ext" :class="{
+                            'card-gold-back': card.color === 'GOLD',
+                            'card-silver-back': card.color === 'SILVER',
+                            'card-titanium-back': card.color === 'TITANIUM'}">
+                                <img src="https://i.ibb.co/PYss3yv/map.png" class="map-img-ext">
+                                <div class="bar-ext"></div>
+                                <div class="row-ext card-cvv-ext">
+                                    <div>
+                                        <img src="https://i.ibb.co/S6JG8px/pattern.png">
+                                    </div>
+                                    <p>{{card.cvv}}</p>
+                                </div>
+                                <div class="row-ext card-text-ext">
+                                    <p>CUSTOMER SIGNATURE</p>
+                                </div>
+                                <div class="row-ext signature-ext">
+                                    <p>VISA service center (54 11) 43793434</p>
+                                    <img src="https://i.ibb.co/WHZ3nRJ/visa.png" style="height: 1.5rem;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div v-else style="display: flex; flex-direction: column; align-items: center;">
+                        <h6>You don't have a debit card</h6>
+                        <a class="button-card" style="text-align: center; width: 12rem;">Request debit card</a>
+                    </div>
+                </div>                  
+            </div>
+            <div class="d-flex flex-column">
+                <h3 class="h3-cards">Credit Cards</h3>
+                <div class="container-ext d-flex justify-content-around">
+                    <div v-if="creditCards.length !== 0" class="card-ext" v-for="card of creditCards">
+                        <div class="card-inner-ext">
+                            <div class="front-ext" :class="{
+                            'card-gold-front': card.color === 'GOLD',
+                            'card-silver-front': card.color === 'SILVER',
+                            'card-titanium-front': card.color === 'TITANIUM'}">
+                                <img src="https://i.ibb.co/PYss3yv/map.png" class="map-img-ext">
+                                <div class="row-ext">
+                                    <img src="https://i.ibb.co/G9pDnYJ/chip.png" style="height: 3rem;">
+                                    <div class="d-flex flex-column align-items-end">
+                                        <img src="https://i.ibb.co/WHZ3nRJ/visa.png" style="height: 2rem;">
+                                        <p>Credit</p>
+                                    </div>
+                                </div>
+                                <div class="row-ext card-no-ext ">
+                                    <p style="letter-spacing: 2px;">{{card.number}}</p>
+                                </div>
+                                <div class="row-ext card-holder-ext text-align-center">
+                                    <p>CARD HOLDER</p>
+                                    <p>VALID FROM</p>
+                                    <p>GOOD THRU</p>
+                                </div>
+                                <div class="row-ext name-ext text-align-center">
+                                    <p>{{card.cardholder}}</p>
+                                    <p>{{card.fromDate}}</p>
+                                    <p>{{card.thruDate}}</p>
+                                </div>
+                            </div>
+                            <div class="back-ext" :class="{
+                            'card-gold-back': card.color === 'GOLD',
+                            'card-silver-back': card.color === 'SILVER',
+                            'card-titanium-back': card.color === 'TITANIUM'}">
+                                <img src="https://i.ibb.co/PYss3yv/map.png" class="map-img-ext">
+                                <div class="bar-ext"></div>
+                                <div class="row-ext card-cvv-ext">
+                                    <div>
+                                        <img src="https://i.ibb.co/S6JG8px/pattern.png">
+                                    </div>
+                                    <p>{{card.cvv}}</p>
+                                </div>
+                                <div class="row-ext card-text-ext">
+                                    <p>CUSTOMER SIGNATURE</p>
+                                </div>
+                                <div class="row-ext signature-ext">
+                                    <p>VISA service center (54 11) 43793434</p>
+                                    <img src="https://i.ibb.co/WHZ3nRJ/visa.png" style="height: 1.5rem;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+    </main>
+
+    <footer>
+        <img src="" alt="">
+        <img src="" alt="">
+        <img src="" alt="">
+        <p>All rights reserved</p>
+      </footer>
+
+    
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script src="./assets/cards.js"></script>
+</html>
