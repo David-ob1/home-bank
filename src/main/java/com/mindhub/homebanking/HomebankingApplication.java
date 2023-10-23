@@ -2,10 +2,12 @@ package com.mindhub.homebanking;
 
 import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.repositories.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -17,6 +19,9 @@ import static com.mindhub.homebanking.models.TransactionType.*;
 //
 public class HomebankingApplication {
 	//esto es el main donde se trabaja
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
 	public static void main(String[] args) {
 		SpringApplication.run(HomebankingApplication.class, args);
 
@@ -26,9 +31,9 @@ public class HomebankingApplication {
 	@Bean
 	public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository, TransactionRepository transactionRepository, LoanRepository loanRepository, ClientLoanRepository clientLoanRepository,CardRepository cardRepository ){
 		return  args ->{
-			Client client1 = new Client("Melba","Morel","melba@mindhub.com");
+			Client client1 = new Client("Melba","Morel","melba@mindhub.com",passwordEncoder.encode("Melba2000MM"));
 
-			Client client2 = new Client("Nicolas","Gonzales","superchapz@saltitoslocos.com");
+			Client client2 = new Client("Nicolas","Gonzales","superchapz@saltitoslocos.com",passwordEncoder.encode("Ediciones1"));
 
 			clientRepository.save(client1);
 			clientRepository.save(client2);
@@ -110,7 +115,7 @@ public class HomebankingApplication {
 			cardRepository.save(client1CardCredit1);
 
 
-			Card client2CardCredit1 = new Card("NICOLAS GONZALES",CardType.DEBIT, CardColor.SILVER,"3000 0000 0000 0002","007",LocalDate.now(),LocalDate.now().plusYears(5));
+			Card client2CardCredit1 = new Card("NICOLAS GONZALES",CardType.DEBIT,CardColor.SILVER,"3000 0000 0000 0002","007",LocalDate.now(),LocalDate.now().plusYears(5));
 			client2.addCard(client2CardCredit1);
 			cardRepository.save(client2CardCredit1);
 

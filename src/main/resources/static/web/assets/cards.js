@@ -23,7 +23,7 @@ const { createApp } = Vue
       // let urlParams = new URLSearchParams(location.search);
       //   let id = urlParams.get('id')
       
-     axios.get("/api/clients/1")
+     axios.get("/api/clients/current")
      
       .then(response => {
      

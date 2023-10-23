@@ -26,6 +26,7 @@ public class ClientDTO {
         cards = client.getCards().stream().map(card -> new CardDTO(card)).collect(Collectors.toList());
     }
 
+
     public Long getId() {
         return id;
     }

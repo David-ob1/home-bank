@@ -10,7 +10,7 @@ const { createApp } = Vue
       }
     },
     created(){
-     axios.get("/api/clients/1")
+     axios.get("/api/clients/current")
       .then(response => {
         apiRestP = response
         console.log(apiRestP)

@@ -261,3 +261,23 @@ footer{
 .card-ext:hover .card-inner-ext {
     transform: rotateY(-180deg);
 }
+
+
+.main__footer{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    padding: 0 6rem;
+    align-items: center;
+}
+.main__footer > p{
+    font-size: 18px;
+    text-transform: uppercase;
+}
+
+.link__social{
+    display: flex;
+    width: 16rem;
+    align-items: end;
+    justify-content: space-around;
+}

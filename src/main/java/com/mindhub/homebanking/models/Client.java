@@ -18,7 +18,7 @@ public class Client {
     @GenericGenerator(name = "native" , strategy = "native")//este ultimo asi
     private Long id;
 
-    private String name,lastName, mail;
+    private String name,lastName, mail,password;
 
     @OneToMany(mappedBy = "client" , fetch = FetchType.EAGER)
     private Set<Account> accounts = new HashSet<>();
@@ -27,8 +27,6 @@ public class Client {
     private Set<ClientLoan> clientLoans = new HashSet<>();
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private Set<Card> cards = new HashSet<>();
-
-
 
 
     public Client() {
@@ -44,11 +42,11 @@ public class Client {
     }
 
 
-    public Client(String name,String lastName,String mail) {
+    public Client(String name,String lastName,String mail,String password) {
         this.name = name;
         this.lastName = lastName;
         this.mail = mail;
-
+        this.password = password;
 //        @OneToMany(mappedBy = "client" , fetch = FetchType.EAGER)
 //        private Set<Account> accounts = new HashSet<>();
 
@@ -124,5 +122,11 @@ public class Client {
         return clientLoans.stream().map(loans -> loans.getLoan()).collect(Collectors.toList());
     }
 
+    public String getPassword() {
+        return password;
+    }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
