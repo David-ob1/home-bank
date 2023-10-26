@@ -32,7 +32,19 @@ const { createApp } = Vue
 
 
      })
-    }
+    },
+
+    methods:{
+      clientLogOut(){
+               axios.post("/api/logout")
+               .then(response =>  {
+                   console.log("sign out!")
+                   location.href ="http://localhost:8080"
+               })
+           }
+     
+     
+         }
 
 
 

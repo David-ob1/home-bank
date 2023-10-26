@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 public class ClientDTO {
     private Long id;
-    private String name,lastName, mail;
+    private String name,lastName, email;
 
         private List<AccountDTO> accounts;
 
@@ -20,7 +20,7 @@ public class ClientDTO {
         id = client.getId();
         name = client.getName();
         lastName = client.getLastName();
-        mail = client.getMail();
+        email = client.getEmail();
         accounts = client.getAccounts().stream().map(account -> new AccountDTO(account)).collect(Collectors.toList());
         loans = client.getClientLoans().stream().map(loan -> new ClientLoanDTO(loan)).collect(Collectors.toList());
         cards = client.getCards().stream().map(card -> new CardDTO(card)).collect(Collectors.toList());
@@ -39,8 +39,8 @@ public class ClientDTO {
         return lastName;
     }
 
-    public String getMail() {
-        return mail;
+    public String getEmail() {
+        return email;
     }
 
     public List<AccountDTO> getAccounts() {

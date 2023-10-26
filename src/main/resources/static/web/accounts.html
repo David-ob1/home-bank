@@ -39,7 +39,7 @@
 
 
                  <li class="nav-item">
-                  <a class="nav-link" href="#">quit</a>
+                  <a class="nav-link" @click="clientLogOut"  href="#">quit</a>
                 </li>
                
               </ul>
@@ -75,39 +75,29 @@
           </button>
         </div>  
 
-    
+        
      </header>
      
-     
-   
-
       <main class="flex-grow-1">
-        <h1>Welcome, {{client.lastName +" "+ client.name}} </h1>
-
+        <h1 class="center__text">Welcome, {{client.lastName +" "+ client.name}} </h1>
 
        <div class="cards__container">
-
-          
-
           <div v-for="account of accounts" class="card mb-3" style="max-width: 540px;">
             <div class="row g-0">
               <div class="col-md-4 img__cardC">
-                <img src="./assets/img/account_img.png" class="img-fluid rounded-start bg-primary" alt="" >
+                <img src="./assets/img/account_img.png" class="img-fluid rounded-start bg-primary virtual__cash" alt="" >
               </div>
               <div class="col-md-8">
                 <div class="card-body">
-                  <h5 class="card-title">{{account.number}}</h5>
-                  <p class="card-text ">Monto:<span style="font-size:40px;"> ${{account.balance}}</span></p>
+                  <h5 class="card-title number__account">{{account.number}}</h5>
+                  <p class="card-text ">amount:<span class="user__amount"> ${{account.balance}}</span></p>
                 
-                 
-
                   <small class="text-body-secondary">  
                     
-                   
-                      <div class="d-flex justify-content-around" style="align-items: end;">
-                      <p>Fecha de creacion:</p>
+                      <div class="details__card">
+                      <p>creation date:</p>
                       <p>{{account.creationDate}}</p>
-                      <a :href="`http://localhost:8080/web/account.html?id=${account.id}`" class="btn btn-dark">Details</a>
+                      <a :href="`http://localhost:8080/web/account.html?id=${account.id}`" class="btn btn-dark">transactions</a>
                     </div>
                   </small>
                 </div>
@@ -116,15 +106,15 @@
           </div>
 
          
-
+          <button v-if="accounts.length < 3" class="btn__crateAcc" @click="createAccount">create Account</button>
           
 
        
         </div>
         
-        <div>
-
-          <table class="table w-100" v-if="loans.legth != 0">
+        <div class="container__table">
+          
+          <table class="table" v-if="loans.legth != 0">
             <thead>
                 <tr>
                     <th scope="col">Type loan</th>
@@ -153,13 +143,15 @@
 
  
 
-  <footer>
-    <img src="" alt="">
-    <img src="" alt="">
-    <img src="" alt="">
-    <p>All rights reserved</p>
-  </footer>
+      <footer class="main__footer">
+        <div class="link__social">
+            <img src="./assets/img/facebook.png" alt="">
+            <img src="./assets/img/whatsapp.png" alt="">
+            <img src="./assets/img/instagram.png" alt="">
+        </div>
+        <p>All rights reserved</p>
 
+      </footer>
 
     </div>
 

@@ -1,3 +1,6 @@
+:root{
+    --bg-item:#0d6efd;
+}
 
 .layout{
     min-height: 100vh;
@@ -12,6 +15,9 @@
     object-fit: cover;
 }
 
+.center__text{
+    text-align: center;
+}
 .cards__container{
     margin-top: 2rem;
     display: flex;
@@ -19,12 +25,55 @@
     flex-wrap: wrap;
     justify-content:space-evenly;
     
+}
+
+.btn__crateAcc{
+        width: 80%;
+        text-transform: uppercase;
+        font-family:Arial, Helvetica, sans-serif;
+        padding: .5rem;
+        margin: .5rem;
+        margin-bottom:1rem;
+        background-color: var(--bg-item);
+        color: white;
+        font-weight: 500;
+        font-size: 25px;
+        border-radius: 5px;
+        border: none;
+}
+
+.btn__crateAcc:hover{
+    background-color: #2c7ffd;
+}
+
+.btn__crateAcc:active{
+    background-color: #0059df;
+}
+
+.card{
+    box-shadow:0px 0px 3px 1px  rgb(223, 223, 223);
+}
+
+.virtual__cash{
+    padding: 1rem;
+    height: 100%;
+    object-fit: contain;
 
 }
+
 
 .account__card{
     width: 23rem;
     margin: 1rem;
+}
+
+
+
+.details__card{
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+
 }
 
 .account__details{
@@ -32,6 +81,7 @@
     flex-direction: column;
     width: 100%;
     align-items: center;
+  
 }
 
 .transaction__details{
@@ -41,9 +91,28 @@
     width: 80%;
     gap:1rem;
    
-
+}
+.number__account{
+    font-size: 30px !important;
 }
 
+.user__amount{
+font-size: 25px;
+}
+
+
+.container__table{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.container__table .table{
+    width: 80%;
+    box-shadow:0px 0px 6px 2.5px  #333;
+}
 
  .debit{
     color:tomato !important;

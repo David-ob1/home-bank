@@ -40,6 +40,9 @@ public class Card {
         this.fromDate = fromDate;
     }
 
+    public Card(String s, CardType cardType, String s1, String number, LocalDate localDate, LocalDate now) {
+    }
+
     public long getId() {
         return id;
     }

@@ -1,4 +1,4 @@
-package com.mindhub.homebanking.configurations;
+package com.mindhub.homebanking.configuration;
 
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.ClientRepository;
@@ -20,22 +20,34 @@ public class WebAuthentication extends GlobalAuthenticationConfigurerAdapter {
     @Autowired
     ClientRepository clientRepository;
 
-
     @Override
     public void init(AuthenticationManagerBuilder auth) throws Exception {
 
-        auth.userDetailsService(inputMail-> {
+        auth.userDetailsService(inputEmail-> {
 
-            Client client = clientRepository.findByMail(inputMail);
+            Client client = clientRepository.findByEmail(inputEmail);
 
             if (client != null) {
 
-                return new User(client.getMail(), client.getPassword(),
+
+                if(client.getEmail().contains("mindbro")){
+                    return new User(client.getEmail(), client.getPassword(),
+                            AuthorityUtils.createAuthorityList("ADMIN,CLIENT"));
+
+                }
+
+                if(client.getEmail().equals("guilleaquino@gmail.com")){
+                    return new User(client.getEmail(), client.getPassword(),
+                            AuthorityUtils.createAuthorityList("ADMIN"));
+
+                }
+
+                return new User(client.getEmail(), client.getPassword(),
                         AuthorityUtils.createAuthorityList("CLIENT"));
 
             } else {
 
-                throw new UsernameNotFoundException("Unknown user: " + inputMail);
+                throw new UsernameNotFoundException("Unknown user: " + inputEmail);
 
             }
 

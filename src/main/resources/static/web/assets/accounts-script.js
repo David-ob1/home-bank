@@ -10,20 +10,10 @@ const { createApp } = Vue
       }
     },
     created(){
-     axios.get("/api/clients/current")
-      .then(response => {
-        apiRestP = response
-        console.log(apiRestP)
-        
-        this.client = response.data;
-        console.log(this.client)
-
-
-        this.accounts = this.client.accounts
-        console.log(this.accounts)
-
-        this.loans = this.client.loans
-     })
+     axios.get("/api/clients/currents")
+      .then(response => 
+        this.getData()
+        )
     },
 
     methods:{
@@ -32,7 +22,47 @@ const { createApp } = Vue
                 .toFixed(2)
                 .replace(/./g, ",")
                 .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-        }
+        },
+
+        clientLogOut(){
+          axios.post("/api/logout")
+          .then(response =>  {
+              console.log("sign out!")
+              location.href ="http://localhost:8080"
+          }).catch(error => console.log(error))
+      },
+
+      createAccount(){
+        axios.post("/api/clients/current/accounts")
+        .then(response =>{
+          this.getData()
+       }
+          
+          
+          
+          )
+        .catch(error => console.log(error))
+      },
+
+      getData(){
+
+        axios.get("/api/clients/currents")
+        .then(response => {
+          apiRestP = response
+          console.log(apiRestP)
+          
+          this.client = response.data;
+          console.log(this.client)
+  
+  
+          this.accounts = this.client.accounts
+          console.log(this.accounts)
+  
+          this.loans = this.client.loans
+       })
+
+
+      }
 
 
     }

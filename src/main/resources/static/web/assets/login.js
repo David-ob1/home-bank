@@ -3,7 +3,7 @@ const { createApp } = Vue
 createApp({
   data() {
     return {
-      mail:"",
+      email:"",
       password:""
     }
 
@@ -12,21 +12,45 @@ createApp({
   methods:{
 
     clientLog(){
-        const clientLogin = `mail=${this.mail}&password=${this.password}`
+
+console.log("datos")
+
+      let check = true
+      let msn = ""
+
+      if(this.email == ""|| this.email == " " ){
+          msn += `el campo email esta vacio <br> `
+          check = false
+      }
+
+      if(this.password == ""|| this.password == " "){
+        msn += `contraseña no valida <br>`
+        check = false
+      }
+
+    
+      if(check != true ){
+        alert(msn)
+        return false
+        
+      }
+
+        let clientLogin = `email=${this.email}&password=${this.password}`
         axios.post("/api/login", clientLogin)
             .then(response =>{
                 console.log("sign in!")
-                location.pathName ="http://localhost:8080/web/accounts.html"
+                location.pathName = "/web/accounts.html"
             })
 
             .catch(error => alert("User not found"))
     },
 
+
     clientLogOut(){
         axios.post("/api/logout")
         .then(response =>  {
             console.log("sign out!")
-            location.href ="http://localhost:8080"
+            location.pathName ="/web/login.html"
         })
     }
   }

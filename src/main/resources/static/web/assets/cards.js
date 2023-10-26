@@ -23,10 +23,9 @@ const { createApp } = Vue
       // let urlParams = new URLSearchParams(location.search);
       //   let id = urlParams.get('id')
       
-     axios.get("/api/clients/current")
+     axios.get("/api/clients/current/cards")
      
       .then(response => {
-     
         this.account = response.data;
         console.log(this.account)
 
@@ -36,9 +35,20 @@ const { createApp } = Vue
         this.debitCards = this.cards.filter(card => card.type == "DEBIT")
         this.creditCards =  this.cards.filter(card => card.type == "CREDIT")
 
-        console.log(this.debitCards)
+       
      })
-    }
+    },
+    methods:{
+      clientLogOut(){
+               axios.post("/api/logout")
+               .then(response =>  {
+                   console.log("sign out!")
+                   location.href ="http://localhost:8080"
+               })
+           }
+     
+     
+         }
 
 
 

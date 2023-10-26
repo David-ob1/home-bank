@@ -38,7 +38,7 @@
 
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#">quit</a>
+                            <a class="nav-link" @click="clientLogOut" href="#">quit</a>
                         </li>
 
                     </ul>
@@ -168,6 +168,7 @@
                     </div>
 
 
+          <a v-if="cards.length < 6"  type="button" class="btn btn-primary" href="create-cards.html"></a>
 
     </main>
 

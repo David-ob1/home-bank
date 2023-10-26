@@ -8,6 +8,6 @@ import java.util.List;
 
 @RepositoryRestResource
 public interface ClientRepository extends JpaRepository<Client,Long> {
-    Client findByMail (String mail);
+    Client findByEmail (String mail);
 
 }

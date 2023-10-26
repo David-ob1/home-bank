@@ -37,11 +37,8 @@ body{
 
 body:after,
 body:before{
-
 	content:"";
-
 	position: fixed;
-
 	height: 400px;
 	width: 400px;
 	border-radius: 50%;
@@ -67,7 +64,6 @@ body:after{
 
 	transform: translate(40%);
 }
-
 
 
 a{

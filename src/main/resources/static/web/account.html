@@ -38,7 +38,7 @@
 
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#">quit</a>
+                            <a class="nav-link" @click="clientLogOut" href="#">quit</a>
                         </li>
 
                     </ul>
@@ -53,13 +53,9 @@
 
 
     <main class="flex-grow-1">
-        <h1>Welcome, Melba </h1>
-
-
-       
-
+        <h1 class="center__text" >Welcome, Melba </h1>
         
-
+        <div class="container__table">
             <table class="table table-responsive">
                 <thead>
                     <tr>
@@ -88,12 +84,16 @@
 
 
 
-    <footer>
-        <img src="" alt="">
-        <img src="" alt="">
-        <img src="" alt="">
+    
+    <footer class="main__footer">
+        <div class="link__social">
+            <img src="./assets/img/facebook.png" alt="">
+            <img src="./assets/img/whatsapp.png" alt="">
+            <img src="./assets/img/instagram.png" alt="">
+        </div>
         <p>All rights reserved</p>
-    </footer>
+
+      </footer>
 
 
 </div>
