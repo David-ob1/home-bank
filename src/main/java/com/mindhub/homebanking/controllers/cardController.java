@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,14 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDate;
 
 @RestController
-//@RequestMapping("/api/clients/current/cards")
+@RequestMapping("/api")
 public class cardController {
     @Autowired
   private  ClientRepository clientRepository;
     @Autowired
     private CardRepository cardRepository;
 
-    @RequestMapping("/api/clients/current/cards")
+    @PostMapping("/clients/current/cards")
     public ResponseEntity <Object> crateCard(@RequestParam CardColor cardColor, @RequestParam CardType cardType, Authentication authentication){
         //busco al cliente x mail
         Client client = clientRepository.findByEmail(authentication.getName());
@@ -37,7 +38,7 @@ public class cardController {
             return new ResponseEntity<>("You cannot have more than three cards of the same type.", HttpStatus.FORBIDDEN);
         }
 
-        Card card = new Card(client.getName()+" "+ client.getLastName(),cardType,generateNumberCard(),generateCvvCard(),LocalDate.now().plusYears(5),LocalDate.now());
+        Card card = new Card(client.getName()+" "+ client.getLastName(),cardType,cardColor,generateNumberCard(),generateCvvCard(),LocalDate.now().plusYears(5),LocalDate.now());
 
         client.addCard(card);
         cardRepository.save(card);

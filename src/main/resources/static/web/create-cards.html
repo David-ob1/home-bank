@@ -65,6 +65,8 @@
                      <p>Type of Card</p>
                      
                         <select v-model="typeCard">
+                            
+                            <option selected value="">Options</option>
                             <option value="DEBIT">DEBIT</option>
                             <option value="CREDIT">CREDIT </option>
                         </select>
@@ -74,9 +76,10 @@
 
 
                     <div class="username d-flex justify-content-between">
-                        <p>Type of Card</p>
+                        <p>Color of Card</p>
                         
                            <select v-model="colorCard">
+                            <option selected value="">Options</option>
                                <option value="SILVER">SILVER</option>
                                <option value="GOLD">GOLD</option>
                                <option value="PLATINUM">PLATINUM</option>
@@ -84,6 +87,9 @@
    
    
                        </div>
+
+
+            <button type="button" @click="createCard" class="btn btn-primary">Primary</button>
 
                     <!-- nombre de usuario
                     <div class="username">
@@ -130,6 +136,6 @@
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-
+<script src="./assets/crate-cards.js"></script>
 
 </html>

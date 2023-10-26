@@ -6,7 +6,7 @@ const { createApp } = Vue
         cards:{},
         debitCards:[],
         creditCards:[],
-        accounts:{},
+        client:{},
         transactions:{},
       
       }
@@ -23,13 +23,15 @@ const { createApp } = Vue
       // let urlParams = new URLSearchParams(location.search);
       //   let id = urlParams.get('id')
       
-     axios.get("/api/clients/current/cards")
+     axios.get("/api/clients/current")
      
       .then(response => {
-        this.account = response.data;
-        console.log(this.account)
 
-        this.cards = this.account.cards
+
+        this.client = response.data;
+        console.log(this.client)
+
+        this.cards = this.client.cards
         console.log(this.cards)
 
         this.debitCards = this.cards.filter(card => card.type == "DEBIT")

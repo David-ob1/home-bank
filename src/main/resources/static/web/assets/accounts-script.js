@@ -10,7 +10,7 @@ const { createApp } = Vue
       }
     },
     created(){
-     axios.get("/api/clients/currents")
+     axios.get("/api/clients/current")
       .then(response => 
         this.getData()
         )
@@ -46,7 +46,7 @@ const { createApp } = Vue
 
       getData(){
 
-        axios.get("/api/clients/currents")
+        axios.get("/api/clients/current")
         .then(response => {
           apiRestP = response
           console.log(apiRestP)
