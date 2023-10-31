@@ -55,9 +55,25 @@ public class ClientController {
             @RequestParam String name, @RequestParam String lastName,
             @RequestParam String email, @RequestParam String password) {
 
-        if (name.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty()) {
-            return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
+
+        if(name.isEmpty() || name.isBlank()){
+            return new ResponseEntity<>("the name is not valid,complete it please.", HttpStatus.FORBIDDEN);
         }
+
+        if(lastName.isEmpty() || lastName.isBlank()){
+            return new ResponseEntity<>("the last name is not valid,complete it please.", HttpStatus.FORBIDDEN);
+        }
+
+        if(email.isEmpty() || email.isBlank()){
+            return new ResponseEntity<>("the email is not valid,complete it please.", HttpStatus.FORBIDDEN);
+        }
+
+        if(password.isEmpty() || password.isBlank()){
+            return new ResponseEntity<>("the name is not valid,complete it please.", HttpStatus.FORBIDDEN);
+        }
+
+
+
 
         if (clientRepository.findByEmail(email) !=  null) {
             return new ResponseEntity<>("Email already in use", HttpStatus.FORBIDDEN);

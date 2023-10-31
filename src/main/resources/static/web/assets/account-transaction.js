@@ -39,7 +39,7 @@ const { createApp } = Vue
                axios.post("/api/logout")
                .then(response =>  {
                    console.log("sign out!")
-                   location.href ="http://localhost:8080"
+                   location.href ="login.html"
                })
            }
      

@@ -14,13 +14,46 @@ createApp({
   methods:{
 
     register(){
+    // if(!validate(this.name,this.lastName,this.email,this.password)) {
+    //   Swal.fire({
+    //     icon: 'error',
+    //     title: 'Oops...',
+    //     text: msn,
+    //     footer: '<a href="">Why do I have this issue?</a>'
+    //   })
+    //   return false
+
+    // }
+
+
+
+
+
+
+
+
+
+
+
       
+    // if(check != true ){
+    //   Swal.fire({
+    //     icon: 'error',
+    //     title: 'Oops...',
+    //     text: msn,
+    //     footer: '<a href="">Why do I have this issue?</a>'
+    //   })
+    //   return false
+      
+    // }
+
+
       console.log(this.email)
         const clientLogin = `name=${this.name}&lastName=${this.lastName}&email=${this.email}&password=${this.password}`
         axios.post("/api/clients", clientLogin)
             .then(response =>{
                 console.log("register")
-                location.pathName ="/web/accounts.html"
+                location.href ="/web/login.html"
                 console.log(response)
 
 
@@ -39,7 +72,16 @@ createApp({
             console.log("sign out!")
             location.href ="http://localhost:8080"
         })
+    },
+
+    validate(name,lastName,email,password){
+      let status = true
+
+
+      return status
     }
+
+
   }
 
   
@@ -100,13 +142,4 @@ createApp({
     //   check = false
     // }
 
-      // if(check != true ){
-      //   Swal.fire({
-      //     icon: 'error',
-      //     title: 'Oops...',
-      //     text: msn,
-      //     footer: '<a href="">Why do I have this issue?</a>'
-      //   })
-      //   return false
-        
-      // }
+      

@@ -57,7 +57,7 @@ public class cardController {
         StringBuilder cardNumber;
         do {
             cardNumber = new StringBuilder();
-            for (int i = 0; i < 16; i++) {
+               for (int i = 0; i < 16; i++) {
                 cardNumber.append(generateRandomNumber(0, 9));
                 if ((i + 1) % 4 == 0 && i != 15) cardNumber.append("-");
             }
@@ -75,6 +75,8 @@ public class cardController {
             }
         } while (cardRepository.existsByCvv(cardNumber.toString()));
         return cardNumber.toString();
+
+
     }
 
 

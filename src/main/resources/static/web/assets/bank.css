@@ -72,7 +72,12 @@
 .details__card{
     display: flex;
     justify-content: space-around;
-    text-align: center;
+    align-items: center;
+
+}
+
+.details__card > p{
+    margin: 0;
 
 }
 
@@ -130,6 +135,7 @@ font-size: 25px;
 }
 
 footer{
+    /* height: 3rem; */
     background-color: #008a81;
     color: white;
 }
@@ -342,11 +348,18 @@ footer{
 .main__footer > p{
     font-size: 18px;
     text-transform: uppercase;
+    margin: 0;
 }
 
 .link__social{
     display: flex;
-    width: 16rem;
+    width: 12rem;
     align-items: end;
     justify-content: space-around;
+}
+
+
+.link__social > img {
+height: 3.5rem;
+
 }

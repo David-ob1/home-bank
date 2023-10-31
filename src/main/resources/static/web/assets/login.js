@@ -39,7 +39,8 @@ console.log("datos")
         axios.post("/api/login", clientLogin)
             .then(response =>{
                 console.log("sign in!")
-                location.pathName = "/web/accounts.html"
+                location.href = "accounts.html"
+                console.log("paso")
             })
 
             .catch(error => alert("User not found"))
@@ -50,7 +51,7 @@ console.log("datos")
         axios.post("/api/logout")
         .then(response =>  {
             console.log("sign out!")
-            location.pathName ="/web/login.html"
+            location.href ="/web/login.html"
         })
     }
   }

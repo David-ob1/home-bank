@@ -106,7 +106,7 @@ width: 100%;
 }
 
 
-input[type="submit"]{
+input[type="button"]{
 
 	width: 100%;
 	height: 50px;
@@ -143,4 +143,28 @@ input[type="submit"]:hover{
 
 .registrarse a:hover{
 	text-decoration: underline;
+}
+
+.btn__botoncito{
+	font-family: Arial, Helvetica, sans-serif;
+	background: #6c3483;
+	color: white;
+}
+
+.form__input-box{
+	display: flex;
+    justify-content: space-between;
+    align-items: center;
+	padding: .5rem;
+   
+}
+
+.form__input-box > p{
+	margin: 0;
+}
+
+
+.source__acount{
+    width: 50%;
+	font-weight: 400;
 }

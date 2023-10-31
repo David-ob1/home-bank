@@ -69,13 +69,11 @@ public class AccountController {
             clientRepository.save(client);
 
          //   Account account1 = new Account("VIN001", LocalDate.now(),5000);
-
-
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     public String generateNumberA(long min, long max) {
-       List<AccountDTO > account = getAllAccounts();
+       List<AccountDTO> account = getAllAccounts();
        Set<String> accounetSet = account.stream().map(accountDTO ->
            accountDTO.getNumber()
 

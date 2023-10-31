@@ -1,6 +1,7 @@
 package com.mindhub.homebanking.configuration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -20,10 +21,25 @@ public class WebAuthorization{
     public SecurityFilterChain filterchain(HttpSecurity http) throws Exception {
         http.authorizeRequests()
 
-//                .antMatchers("/**").permitAll();
-                .antMatchers("web/index.html","web/assets/**","api/clients/current/cards").permitAll()
-                .antMatchers("/web/accounts.html","/web/account.html").hasAuthority("CLIENT")
-                .antMatchers("/rest/**").hasAuthority("ADMIN");
+            .antMatchers("/web/index.html","/web/assets/bank.css","/web/assets/img/**").permitAll()
+            .antMatchers("/web/login.html","/web/assets/form.css","/web/assets/login.js").permitAll()
+            .antMatchers("/web/assets/register.js").permitAll()
+            .antMatchers(HttpMethod.POST,"/api/clients").permitAll()
+
+            .antMatchers("/web/register.html").permitAll()
+
+            .antMatchers("/web/accounts.html","/web/assets/**").hasAuthority("CLIENT")
+            .antMatchers("/web/account.html","/web/cards.html").hasAuthority("CLIENT")
+            .antMatchers("/web/cards.html","/web/create-cards.html").hasAuthority("CLIENT")
+            .antMatchers("/api/clients/current", "/api/clients/current/accounts","/api/clients/current/cards").hasAuthority("CLIENT")
+
+
+
+
+            .antMatchers("/rest/**").hasAuthority("ADMIN")
+         //   .antMatchers("/api/**").hasAuthority("ADMIN")
+            .anyRequest().denyAll();
+
         http.formLogin()
                 .usernameParameter("email")
                 .passwordParameter("password")
@@ -31,14 +47,22 @@ public class WebAuthorization{
 
         http.logout().logoutUrl("/api/logout");
 
-        http.csrf().disable();
+        //hace q no se pueda complicar la solicitud sin el token  pero nostros la desactivamos
+        http.csrf().disable();//no solo form
 
+            //permite ingresar paginas de 3ros
         http.headers().frameOptions().disable();
 
+
+    // si entro sin estar autenticado
         http.exceptionHandling().authenticationEntryPoint((req, res, exc) -> res.sendError(HttpServletResponse.SC_UNAUTHORIZED));
+                                        //limpia el los datos de autenticacion al
 
         http.formLogin().successHandler((req, res, auth) -> clearAuthenticationAttributes(req));
+        //si falla el login ( error intermiedio)
         http.formLogin().failureHandler((req, res, exc) -> res.sendError(HttpServletResponse.SC_UNAUTHORIZED));
+
+        //if logout is successful,just  send  a success response
         http.logout().logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler());
 
         return http.build();
