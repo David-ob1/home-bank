@@ -36,9 +36,9 @@ public class WebAuthorization{
 
 
 
-            .antMatchers("/rest/**").hasAuthority("ADMIN")
+            .antMatchers("/rest/**").hasAuthority("ADMIN");
          //   .antMatchers("/api/**").hasAuthority("ADMIN")
-            .anyRequest().denyAll();
+//            .anyRequest().denyAll();
 
         http.formLogin()
                 .usernameParameter("email")

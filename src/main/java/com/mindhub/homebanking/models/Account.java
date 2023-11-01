@@ -16,7 +16,7 @@ public class Account {
     @GenericGenerator(name = "generator" , strategy = "native")
         private long id;
 
-            private String number ;
+        private String number ;
         private LocalDate creationDate;
         private double balance;
     @ManyToOne (fetch = FetchType.EAGER)

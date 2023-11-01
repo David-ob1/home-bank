@@ -6,6 +6,7 @@ import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
+import com.mindhub.homebanking.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,78 +21,71 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+
 @RestController
 @RequestMapping("/api")
 public class AccountController {
-    @Autowired
-    private AccountRepository accountRepository;
 
     @Autowired
-    private ClientRepository clientRepository;
+    private AccountService accountService;
 
 
     @RequestMapping("/accounts")
     public List<AccountDTO> getAllAccounts(){
 
-        List<Account> accounts = accountRepository.findAll();
+        return accountService.getAllAccounts();
+    }
 
-        Stream<Account> accountStream = accounts.stream();
-
-        Stream<AccountDTO> accountDTOStream = accountStream.map(account -> new AccountDTO(account));
-
-        List <AccountDTO> accountDTOS = accountDTOStream.collect(Collectors.toList());
-
-        return accountDTOS;
+    @RequestMapping("/clients/current/accounts")
+    public List<AccountDTO> getAll(Authentication authentication) {
+        return accountService.getAll(authentication);
     }
 
 
     @RequestMapping("/accounts/{id}")
     public AccountDTO getAccount(@PathVariable Long id){
-//no se rompe la aplicacion si no se cumple
-        AccountDTO foundAccount = accountRepository.findById(id).map(account -> new AccountDTO(account)).orElse(null);
 
-        return foundAccount;
+        return accountService.getAccount(id);
     }
 
     @RequestMapping(path = "/clients/current/accounts", method = RequestMethod.POST)
     public ResponseEntity<Object> createAccount( Authentication authentication){
-        Client client = clientRepository.findByEmail(authentication.getName());
 
 
-        if( client.getAccounts().size() == 3){
-            return new ResponseEntity<>("you already has 3 account" , HttpStatus.FORBIDDEN);
-        }                                                      //solo el ultimo no incluye
-
-
-            Account accountCAuten = new Account(generateNumberA(1l,100000000l),LocalDate.now(),0);
-            client.addAccount(accountCAuten);
-            accountRepository.save(accountCAuten);
-            clientRepository.save(client);
-
-         //   Account account1 = new Account("VIN001", LocalDate.now(),5000);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return accountService.createAccount(authentication);
     }
+
+
 
     public String generateNumberA(long min, long max) {
-       List<AccountDTO> account = getAllAccounts();
-       Set<String> accounetSet = account.stream().map(accountDTO ->
-           accountDTO.getNumber()
 
-       ).collect(Collectors.toSet());
-
-        String aux = "VIN-";
-        long number;
-        int numberOfDigits = 8;
-        //expreso el numero en el formato deseado  //numeros como maximo 8 d
-        String formatString = "%0" + numberOfDigits + "d";
-        String numberCompleted;
-        do{
-        number = ThreadLocalRandom.current().nextLong(min, max);
-        numberCompleted = aux +String.format(formatString,number);
-        }
-        while (accounetSet.contains(numberCompleted));
-         return numberCompleted;
+         return accountService.generateNumberA(min,max);
     }
+
+
+//    @PostMapping("/clients/current/accounts")
+//    public ResponseEntity<String> createAccount(Authentication authentication) {
+//        Client currentClient = clientRepository.findByEmail(authentication.getName());
+//        if (clientRepository.countAccountsByClient(currentClient) >= 3) {
+//            return new ResponseEntity<>("You already have the maximum number of possible accounts (3)", HttpStatus.FORBIDDEN);
+//        }
+//        int accountsNumber;
+//        String accountNumberString;
+//        do {
+//            accountsNumber = getRandomNumber(0, 99999999);
+//            accountNumberString = String.valueOf(accountsNumber);
+//        } while (accountRepository.existsByNumber(accountNumberString));
+//
+//        Random random = new Random();
+//        String accountNumber = "VIN-" + (10000000 + random.nextInt(90000000));
+//        //hacer la comprobacion de que el numero de cuenta existe o no para que no se repita
+//        Account newAccount = new Account();
+//        newAccount.setAccountNumber(accountNumber);
+//        newAccount.setBalance(0);
+//        newAccount.setClient(currentClient);
+//        accountRepository.save(newAccount);
+//        return new ResponseEntity<>("Cuenta creada con éxito", HttpStatus.CREATED);
+//    }
 
 
 }

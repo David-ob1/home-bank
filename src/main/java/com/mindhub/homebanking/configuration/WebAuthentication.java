@@ -15,7 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 @Configuration
-public class WebAuthentication extends GlobalAuthenticationConfigurerAdapter {
+    public class WebAuthentication extends GlobalAuthenticationConfigurerAdapter {
 
     @Autowired
     private ClientRepository clientRepository;
@@ -32,13 +32,12 @@ public class WebAuthentication extends GlobalAuthenticationConfigurerAdapter {
                 if(client.getEmail().contains("mindbro")){
                     return new User(client.getEmail(), client.getPassword(),
                             AuthorityUtils.createAuthorityList("ADMIN","CLIENT"));
-
+    
                 }
 
                 if(client.getEmail().equals("guilleaquino@gmail.com")){
                     return new User(client.getEmail(), client.getPassword(),
                             AuthorityUtils.createAuthorityList("ADMIN"));
-
                 }
 
                 return new User(client.getEmail(), client.getPassword(),

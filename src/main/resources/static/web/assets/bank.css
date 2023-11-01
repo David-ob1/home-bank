@@ -363,3 +363,55 @@ footer{
 height: 3.5rem;
 
 }
+
+.view__main{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+.view__main > div {
+    background-color:#008a81;
+    border: 2px solid white;
+}
+
+.view__main > div> img{
+    width:20rem;
+    height: 15rem;
+    object-fit: cover;
+    border-bottom: 2px solid white;
+}
+
+
+.view__main > div> p{
+    
+    text-align: center;
+    color: white;
+    margin: 0;
+    padding: 8px;
+}
+
+.index{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.part__half{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    width:50%;
+   
+ 
+}
+
+.part__half> img {
+    width:90%;
+    object-fit: cover;
+    height: 21rem;
+}
