@@ -43,8 +43,6 @@ public class TransactionController {
 
 
 
-
-
         if(description.isEmpty() || description.isBlank()){
             return new ResponseEntity<>("the description is not valid,complete it please.", HttpStatus.FORBIDDEN);
         }
@@ -65,8 +63,6 @@ public class TransactionController {
         if(accountDestiny.isEmpty() || accountDestiny.isBlank()){
             return new ResponseEntity<>("the description is not valid,complete it please.", HttpStatus.FORBIDDEN);
         }
-
-
 
 
 

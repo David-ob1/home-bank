@@ -34,6 +34,7 @@ public class WebAuthorization{
             .antMatchers("/web/transfers.html" ).hasAuthority("CLIENT")
             .antMatchers(HttpMethod.POST, "/api/clients/current/transfer").hasAuthority("CLIENT")
             .antMatchers("/web/loan-application.html","/web/loan-application.js").hasAuthority("CLIENT")
+            .antMatchers("/api/loans").hasAuthority("CLIENT")
                 //api/clients/current/transfer
             .antMatchers("/api/clients/current", "/api/clients/current/accounts","/api/clients/current/cards").hasAuthority("CLIENT")
 
