@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.time.LocalDate;
 
 @Service
-public class CardSeriviceImplement implements CardService {
+public class CardServiceImplement implements CardService {
 
     @Autowired
     private CardRepository cardRepository;
@@ -26,18 +26,25 @@ public class CardSeriviceImplement implements CardService {
     private ClientRepository clientRepository;
 
     @Override
-    public ResponseEntity<Object> createCard
+    public ResponseEntity<Object> createCard                //si no tengo un CardType responde con 400
             (@RequestParam CardColor cardColor, @RequestParam CardType cardType, Authentication authentication) {
         //busco al cliente x mail
         Client client = clientRepository.findByEmail(authentication.getName());
 
-        int numberOfCardType =  // card.getType() == cardType
-                (int) client.getCards().stream().filter(card -> card.getType().equals(cardType)).count();
+//        int numberOfCardType =  // card.getType() == cardType
+//                (int) client.getCards().stream().filter(card -> card.getType().equals(cardType)).count();
+//
+//        if (numberOfCardType == 3) {
+//            return new ResponseEntity<>("You cannot have more than three cards of the same type.", HttpStatus.FORBIDDEN);
+//        }
 
 
-        if (numberOfCardType == 3) {
-            return new ResponseEntity<>("You cannot have more than three cards of the same type.", HttpStatus.FORBIDDEN);
-        }
+                if(cardRepository.existsByColorAndTypeAndClient(cardColor,cardType,client)){
+                    return  new ResponseEntity<>("you already have that card", HttpStatus.FORBIDDEN);
+                }
+
+
+
 
         Card card = new Card(client.getName() + " " + client.getLastName(), cardType, cardColor, generateNumberCard(), generateCvvCard(), LocalDate.now().plusYears(5), LocalDate.now());
 

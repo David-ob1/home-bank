@@ -21,8 +21,8 @@ public class WebAuthorization{
     public SecurityFilterChain filterchain(HttpSecurity http) throws Exception {
         http.authorizeRequests()
 
-            .antMatchers("/web/index.html","/web/assets/bank.css","/web/assets/img/**").permitAll()
-            .antMatchers("/web/login.html","/web/assets/form.css","/web/assets/login.js").permitAll()
+                .antMatchers("/web/index.html","/web/assets/bank.css","/web/assets/img/**").permitAll()
+                .antMatchers("/web/login.html","/web/assets/form.css","/web/assets/login.js").permitAll()
             .antMatchers("/web/assets/register.js").permitAll()
             .antMatchers(HttpMethod.POST,"/api/clients").permitAll()
 
@@ -31,14 +31,18 @@ public class WebAuthorization{
             .antMatchers("/web/accounts.html","/web/assets/**").hasAuthority("CLIENT")
             .antMatchers("/web/account.html","/web/cards.html").hasAuthority("CLIENT")
             .antMatchers("/web/cards.html","/web/create-cards.html").hasAuthority("CLIENT")
+            .antMatchers("/web/transfers.html" ).hasAuthority("CLIENT")
+            .antMatchers(HttpMethod.POST, "/api/clients/current/transfer").hasAuthority("CLIENT")
+            .antMatchers("/web/loan-application.html","/web/loan-application.js").hasAuthority("CLIENT")
+                //api/clients/current/transfer
             .antMatchers("/api/clients/current", "/api/clients/current/accounts","/api/clients/current/cards").hasAuthority("CLIENT")
 
 
 
 
-            .antMatchers("/rest/**").hasAuthority("ADMIN");
+            .antMatchers("/rest/**").hasAuthority("ADMIN")
          //   .antMatchers("/api/**").hasAuthority("ADMIN")
-//            .anyRequest().denyAll();
+           .anyRequest().denyAll();
 
         http.formLogin()
                 .usernameParameter("email")

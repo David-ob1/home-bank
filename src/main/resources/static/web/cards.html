@@ -19,6 +19,8 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
+                <h3 class="titulaso">MINDBRO BANK</h3>
+
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav d-flex justify-content-evenly w-100">
                         <li class="nav-item">
@@ -49,15 +51,19 @@
 
     </header>
 
-    <main class="flex-grow-1">
+    <main class="flex-grow-1 ">
 
 
 
         <div class="d-flex justify-content-around flex-wrap" style="padding: 3rem;">
             <div class="d-flex flex-column">
                 <h3 class="h3-cards">Debit Cards</h3>
+
+
                 <div class="container-ext d-flex justify-content-around">
-                    <div v-if="debitCards.length !== 0" class="card-ext" v-for="card of debitCards">
+
+
+                    <div v-if="debitCards.length !== 0" class="card-ext " v-for="card of debitCards">
                         <div class="card-inner-ext">
                             <div class="front-ext" :class="{
                             'card-gold-front': card.color === 'GOLD',
@@ -107,12 +113,19 @@
                             </div>
                         </div>
                     </div>
-                    <div v-else style="display: flex; flex-direction: column; align-items: center;">
+
+                    <!-- <div v-else style="display: flex; flex-direction: column; align-items: center;">
                         <h6>You don't have a debit card</h6>
-                        <a class="button-card" style="text-align: center; width: 12rem;">Request debit card</a>
-                    </div>
+                        <!-- <a class="button-card" style="text-align: center; width: 12rem;">Request debit card</a>
+                    </div> -->
+                    
                 </div>                  
             </div>
+           
+            
+
+
+
             <div class="d-flex flex-column">
                 <h3 class="h3-cards">Credit Cards</h3>
                 <div class="container-ext d-flex justify-content-around">
@@ -167,9 +180,14 @@
                         </div>
                     </div>
 
+                    <br>
+                </div>
+            </div>
+            </div>
 
-          <a v-if="cards.length < 6" type="button" class="btn btn-primary" href="create-cards.html">create card</a>
-
+         <div class="center__div">
+              <a v-if="cards.length < 6" type="button" class="btn btn-primary create__card" href="create-cards.html">create card</a>
+        </div>
     </main>
 
     <footer>

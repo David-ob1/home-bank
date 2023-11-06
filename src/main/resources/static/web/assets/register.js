@@ -24,17 +24,6 @@ createApp({
     //   return false
 
     // }
-
-
-
-
-
-
-
-
-
-
-
       
     // if(check != true ){
     //   Swal.fire({
@@ -49,16 +38,31 @@ createApp({
 
 
       console.log(this.email)
-        const clientLogin = `name=${this.name}&lastName=${this.lastName}&email=${this.email}&password=${this.password}`
-        axios.post("/api/clients", clientLogin)
+        const clientRegister = `name=${this.name}&lastName=${this.lastName}&email=${this.email}&password=${this.password}`
+        axios.post("/api/clients", clientRegister)
             .then(response =>{
                 console.log("register")
-                location.href ="/web/login.html"
+                
+                let clientLogin = `email=${this.email}&password=${this.password}`
+                axios.post("/api/login", clientLogin)
+                    .then(response =>{
+                        console.log("sign in!")
+                        location.href = "accounts.html"
+                        console.log("paso")
+                    }).catch(error => error)
+
+
+
+                location.href ="/web/accounts.html"
                 console.log(response)
 
 
-
             })
+            // .then(
+
+            //   let clientLogin = `email=${this.email}&password=${this.password}`
+
+            // )
 
             .catch(error => console.log(error))
 

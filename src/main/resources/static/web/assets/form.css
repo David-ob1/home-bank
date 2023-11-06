@@ -101,13 +101,12 @@ width: 100%;
 }
 
 
-.recordar hover{
+.recordar:hover{
 	text-decoration: underline;
 }
 
 
 input[type="button"]{
-
 	width: 100%;
 	height: 50px;
 	border: 1px solid;
@@ -119,7 +118,7 @@ input[type="button"]{
 	outline: none; 
 }
 
-input[type="submit"]:hover{
+input[type="button"]:hover{
 
 	border-color:purple;
 	transition: 0.5s;
@@ -167,4 +166,10 @@ input[type="submit"]:hover{
 .source__acount{
     width: 50%;
 	font-weight: 400;
+	/* text-transform: ; */
+}
+
+
+@media max-width {
+	
 }

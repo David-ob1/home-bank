@@ -19,4 +19,6 @@ public interface CardService  {
 
     public String generateCvvCard();
 
+    interface loanService {
+    }
 }

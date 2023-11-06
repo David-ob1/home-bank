@@ -27,82 +27,103 @@ public class AccountServiceImplement implements AccountService {
     @Autowired
     private AccountRepository accountRepository;
 
-    @Autowired
-    private ClientRepository clientRepository;
-
-
     @Override
-    public List<AccountDTO> getAllAccounts(){
-
-        List<Account> accounts = accountRepository.findAll();
-
-        Stream<Account> accountStream = accounts.stream();
-
-        Stream<AccountDTO> accountDTOStream = accountStream.map(account -> new AccountDTO(account));
-
-        List <AccountDTO> accountDTOS = accountDTOStream.collect(Collectors.toList());
-
-        return accountDTOS;
+    public List<Account> findAllAccounts() {
+        return accountRepository.findAll();
     }
 
     @Override
-    public List<AccountDTO> getAll(Authentication authentication) {
-        Client client = (clientRepository.findByEmail(authentication.getName()));
-        List<AccountDTO> accounts = client.getAccounts().stream().map(account -> new AccountDTO(account)).collect(Collectors.toList());
-        return accounts;
-    }
-
-
-   @Override
-    public AccountDTO getAccount(@PathVariable Long id){
-//no se rompe la aplicacion si no se cumple
-        AccountDTO foundAccount = accountRepository.findById(id).map(account -> new AccountDTO(account)).orElse(null);
-
-        return foundAccount;
+    public Account findAccountById(Long id) {
+        return accountRepository.findById(id).orElse(null);
     }
 
     @Override
-    public ResponseEntity<Object> createAccount(Authentication authentication){
-        Client client = clientRepository.findByEmail(authentication.getName());
-
-
-        if( client.getAccounts().size() == 3){
-            return new ResponseEntity<>("you already has 3 account" , HttpStatus.FORBIDDEN);
-        }                                                      //solo el ultimo no incluye
-
-
-        Account accountCAuten = new Account(generateNumberA(1l,100000000l), LocalDate.now(),0);
-        client.addAccount(accountCAuten);
-        accountRepository.save(accountCAuten);
-        clientRepository.save(client);
-
-        //   Account account1 = new Account("VIN001", LocalDate.now(),5000);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public void saveAccount(Account account) {
+        accountRepository.save(account);
     }
 
-
-@Override
-    public String generateNumberA(long min, long max) {
-//       List<AccountDTO> account = getAllAccounts();
-//       Set<String> accounetSet = account.stream().map(accountDTO ->
-//           accountDTO.getNumber()
-//
-//       ).collect(Collectors.toSet());
-
-        String aux = "VIN-";
-        long number;
-        int numberOfDigits = 8;
-        //expreso el numero en el formato deseado  //numeros como maximo 8 d
-        String formatString = "%0" + numberOfDigits + "d";
-        String numberCompleted;
-        do{
-            number = ThreadLocalRandom.current().nextLong(min, max);
-            numberCompleted = aux +String.format(formatString,number);
-        }
-        while (accountRepository.existsByNumber(numberCompleted.toString()));
-        return numberCompleted;
+    @Override
+    public boolean existsAccountByNumber(String number) {
+        return accountRepository.existsByNumber(number);
     }
 
+    @Override
+    public Account findAccountByNumber(String number) {
+        return accountRepository.findByNumber(number);
+    }
 
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //
+//    @Autowired
+//    private AccountRepository accountRepository;
+//
+//    @Autowired
+//    private ClientRepository clientRepository;
+//
+//
+//    @Override
+//    public ResponseEntity<Object> createAccount(Authentication authentication){
+//        Client client = clientRepository.findByEmail(authentication.getName());
+//
+//
+//        if( client.getAccounts().size() == 3){
+//            return new ResponseEntity<>("you already has 3 account" , HttpStatus.FORBIDDEN);
+//        }                                                      //solo el ultimo no incluye
+//
+//
+//        Account accountCAuten = new Account(generateNumberA(1l,100000000l), LocalDate.now(),0);
+//        client.addAccount(accountCAuten);
+//        accountRepository.save(accountCAuten);
+//        clientRepository.save(client);
+//
+//        //   Account account1 = new Account("VIN001", LocalDate.now(),5000);
+//        return new ResponseEntity<>(HttpStatus.CREATED);
+//    }
+//
+//
+//@Override
+//    public String generateNumberA(long min, long max) {
+////       List<AccountDTO> account = getAllAccounts();
+////       Set<String> accounetSet = account.stream().map(accountDTO ->
+////           accountDTO.getNumber()
+////
+////       ).collect(Collectors.toSet());
+//
+//        String aux = "VIN-";
+//        long number;
+//        int numberOfDigits = 8;
+//        //expreso el numero en el formato deseado  //numeros como maximo 8 d
+//        String formatString = "%0" + numberOfDigits + "d";
+//        String numberCompleted;
+//        do{
+//            number = ThreadLocalRandom.current().nextLong(min, max);
+//            numberCompleted = aux +String.format(formatString,number);
+//        }
+//        while (accountRepository.existsByNumber(numberCompleted));
+//        return numberCompleted;
+//    }
+
+
+//}

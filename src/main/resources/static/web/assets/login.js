@@ -39,7 +39,7 @@ console.log("datos")
         axios.post("/api/login", clientLogin)
             .then(response =>{
                 console.log("sign in!")
-                location.href = "accounts.html"
+                location.href = "/web/accounts.html"
                 console.log("paso")
             })
 

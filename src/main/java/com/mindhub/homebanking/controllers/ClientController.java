@@ -6,6 +6,7 @@ import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
 
+import com.mindhub.homebanking.services.AccountService;
 import com.mindhub.homebanking.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,22 +23,28 @@ import java.util.stream.Stream;
 @RestController
 @RequestMapping("/api")
 public class ClientController {
-
-
     @Autowired
     private ClientService clientService;
+    @Autowired
+    private AccountService accountService;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private AccountController accountController;
 
 @RequestMapping("/clients")
     public List<ClientDTO> getAllClients(){
+    List<ClientDTO> clients = clientService.findAllClients().stream().map(client -> new ClientDTO(client)).collect(Collectors.toList());
+    return clients;
+}
 
-    return clientService.getAllClients();
-    }
 
     @RequestMapping("/clients/{id}")
     public ClientDTO getClient(@PathVariable Long id){
 //no se rompe la aplicacion si no se cumple
-
-        return clientService.getClient(id);
+        ClientDTO foundClient = new ClientDTO(clientService.findClientById(id));
+        return foundClient;
     }
 
 
@@ -46,12 +53,43 @@ public class ClientController {
             @RequestParam String name, @RequestParam String lastName,
             @RequestParam String email, @RequestParam String password) {
 
-        return clientService.register(name,lastName,email,password);
+
+        if(name.isEmpty() || name.isBlank()){
+            return new ResponseEntity<>("the name is not valid,complete it please.", HttpStatus.FORBIDDEN);
+        }
+
+        if(lastName.isEmpty() || lastName.isBlank()){
+            return new ResponseEntity<>("the last name is not valid,complete it please.", HttpStatus.FORBIDDEN);
+        }
+
+        if(email.isEmpty() || email.isBlank()){
+            return new ResponseEntity<>("the email is not valid,complete it please.", HttpStatus.FORBIDDEN);
+        }
+
+        if(password.isEmpty() || password.isBlank()){
+            return new ResponseEntity<>("the name is not valid,complete it please.", HttpStatus.FORBIDDEN);
+        }
+
+
+        if (clientService.existsClientByEmail(email)) {
+            return new ResponseEntity<>("Email already in use", HttpStatus.FORBIDDEN);
+        }
+
+
+        Client client = new Client(name, lastName, email, passwordEncoder.encode(password));
+        clientService.saveClient(client);
+        Account account = new Account(accountController.generateNumberA(1l,100000000l), LocalDate.now(),0);
+        client.addAccount(account);
+        accountService.saveAccount(account);
+
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+
 
     @RequestMapping("/clients/current")
     public ClientDTO getAll(Authentication authentication){
-        return clientService.getAll(authentication);
+        return new ClientDTO(clientService.findClientByEmail(authentication.getName()));
     }
 
 

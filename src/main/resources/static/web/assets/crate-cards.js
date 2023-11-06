@@ -12,13 +12,13 @@ createApp({
   methods:{
       
 
-
+    
           createCard(){
 
           const card = `cardType=${this.typeCard}&cardColor=${this.colorCard}`
             axios.post("/api/clients/current/cards", card)
             .then(response =>{ location.href ="/web/cards.html"
-                alert("datos enviados")})
+                alert("CARD CREATED")})
             
             .catch(error => console.log(error))
 
