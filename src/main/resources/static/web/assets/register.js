@@ -14,13 +14,17 @@ createApp({
   methods:{
 
     register(){
+
+      this.clientLogOut()
+
+
+    //  if(this.validate(this.email)) {
+     
+
+    //  }
+      
     // if(!validate(this.name,this.lastName,this.email,this.password)) {
-    //   Swal.fire({
-    //     icon: 'error',
-    //     title: 'Oops...',
-    //     text: msn,
-    //     footer: '<a href="">Why do I have this issue?</a>'
-    //   })
+    //  
     //   return false
 
     // }
@@ -47,13 +51,33 @@ createApp({
                 axios.post("/api/login", clientLogin)
                     .then(response =>{
                         console.log("sign in!")
-                        location.href = "accounts.html"
-                        console.log("paso")
-                    }).catch(error => error)
+                        
+                        Swal.fire({
+                          position: "top-end",
+                          icon: "success",
+                          title: "Your work has been saved",
+                          showConfirmButton: false,
+                          timer: 1300 
+                        });
+
+                        setTimeout(() => {
+                          
+                         location.href = "accounts.html"
+
+                        }, 1400);
+
+                       
+
+
+                      
+                    }).catch(error =>  
+                     console.log(error)
+                     
+                      )
 
 
 
-                location.href ="/web/accounts.html"
+               
                 console.log(response)
 
 
@@ -64,7 +88,13 @@ createApp({
 
             // )
 
-            .catch(error => console.log(error))
+            .catch(error => 
+              Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: error.response.data,
+              // footer: '<a href="#">Why do I have this issue?</a>'
+            }))
 
 
 
@@ -74,15 +104,28 @@ createApp({
         axios.post("/api/logout")
         .then(response =>  {
             console.log("sign out!")
-            location.href ="http://localhost:8080"
+          
         })
     },
 
-    validate(name,lastName,email,password){
-      let status = true
+    validate(email){
+      // let format = /\w+@\w\.+[a-z]/
+      // \w alfanimerico + @ y \. que es un punto (. es un caracter especial)
+      //se declara que debe contener estrictamente
+      // console.log(email)
+      if (!format.test(email)){
+        
+        // Swal.fire({
+        //       icon: 'error',
+        //       title: 'Oops...',
+        //       text: "the email is invalid",
+            
+        //     })
+    
+            return false
+        }
 
-
-      return status
+         return true
     }
 
 
@@ -95,9 +138,7 @@ createApp({
     //   let check = true
     //   let msn = "";
     //   // let formatString = /\w/
-    //   let format = /\w+@\w\.+[a-z]/
-    //   // \w alfanimerico + @ y \. que es un punto (. es un caracter especial)
-    //   //se declara que debe contener estrictamente
+  
 
     //   if(this.name == ""|| this.name == " " ){
     //       msn .push('el campo email esta vacio') 

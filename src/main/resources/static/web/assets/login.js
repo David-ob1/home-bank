@@ -12,6 +12,7 @@ createApp({
   methods:{
 
     clientLog(){
+    this.clientLogOut()
 
 console.log("datos")
 
@@ -43,7 +44,15 @@ console.log("datos")
                 console.log("paso")
             })
 
-            .catch(error => alert("User not found"))
+            .catch(error => 
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "error when entering",
+                // footer: '<a href="#">Why do I have this issue?</a>'
+              })
+
+            )
     },
 
 
@@ -51,7 +60,7 @@ console.log("datos")
         axios.post("/api/logout")
         .then(response =>  {
             console.log("sign out!")
-            location.href ="/web/login.html"
+           
         })
     }
   }

@@ -10,7 +10,7 @@ public class LoanApplicationDTO {
 
     private int payments;
 
-    private String destinationAccount;
+        private String destinationAccount;
 
     public LoanApplicationDTO(long idLoan, double amount, int payments, String destinationAccount) {
         this.idLoan = idLoan;

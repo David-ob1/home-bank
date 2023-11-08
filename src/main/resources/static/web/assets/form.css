@@ -80,7 +80,7 @@ form .username {
 
 
 .username input:focus ~ label,
-.username input:focus ~ label{
+.username input:valid ~ label{
 
 	top:-5px;
 	color: #6c3483;
@@ -152,7 +152,8 @@ input[type="button"]:hover{
 
 .form__input-box{
 	display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+
     align-items: center;
 	padding: .5rem;
    
@@ -168,7 +169,13 @@ input[type="button"]:hover{
 	font-weight: 400;
 	/* text-transform: ; */
 }
+.collapse__input{
+	width: 50%;
+}
 
+.info__dinamic{
+	width: 40%;
+}
 
 @media max-width {
 	

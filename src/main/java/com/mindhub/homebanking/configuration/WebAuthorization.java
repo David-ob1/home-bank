@@ -36,7 +36,7 @@ public class WebAuthorization{
             .antMatchers("/web/loan-application.html","/web/loan-application.js").hasAuthority("CLIENT")
             .antMatchers("/api/loans").hasAuthority("CLIENT")
                 //api/clients/current/transfer
-            .antMatchers("/api/clients/current", "/api/clients/current/accounts","/api/clients/current/cards").hasAuthority("CLIENT")
+            .antMatchers("/api/clients/current/**").hasAuthority("CLIENT")
 
 
 
@@ -65,7 +65,7 @@ public class WebAuthorization{
 
         http.formLogin().successHandler((req, res, auth) -> clearAuthenticationAttributes(req));
         //si falla el login ( error intermiedio)
-        http.formLogin().failureHandler((req, res, exc) -> res.sendError(HttpServletResponse.SC_UNAUTHORIZED));
+        http.formLogin().failureHandler((req, res, exc) -> res.sendError(HttpServletResponse.SC_UNAUTHORIZED, "error"));
 
         //if logout is successful,just  send  a success response
         http.logout().logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler());
