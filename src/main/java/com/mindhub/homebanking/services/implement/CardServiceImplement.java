@@ -56,13 +56,13 @@ public class CardServiceImplement implements CardService {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-@Override
+//@Override
     public int generateRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
     }
 
 @Override
-    public String generateNumberCard() {
+    public  String generateNumberCard() {
         StringBuilder cardNumber;
         do {
             cardNumber = new StringBuilder();

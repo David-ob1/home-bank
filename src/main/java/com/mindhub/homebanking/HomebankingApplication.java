@@ -17,10 +17,9 @@ import static com.mindhub.homebanking.models.TransactionType.*;
 
 @SpringBootApplication
 //
-public class HomebankingApplication {
-	//esto es el main donde se trabaja
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+public class HomebankingApplication {	//esto es el main donde se trabaja
+//	@Autowired
+//	private PasswordEncoder passwordEncoder;
 
 	public static void main(String[] args) {
 		SpringApplication.run(HomebankingApplication.class, args);

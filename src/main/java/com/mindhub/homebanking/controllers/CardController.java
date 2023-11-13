@@ -25,18 +25,20 @@ public class CardController {
     @Autowired
     private CardService cardService;
 
-    @PostMapping("/clients/current/cards")public ResponseEntity <Object> createCard
+
+    @PostMapping("/clients/current/cards")
+    public ResponseEntity <Object> createCard
     (@RequestParam CardColor cardColor, @RequestParam CardType cardType, Authentication authentication){
 
         return cardService.createCard(cardColor,cardType,authentication);
     }
 
 
-//    public int generateRandomNumber(int min, int max) {
-//        return (int) ((Math.random() * (max - min)) + min);
-//    }
-//
-//    public String generateNumberCard() {
+    public int generateRandomNumber(int min, int max) {
+        return (int) ((Math.random() * (max - min)) + min);
+    }
+
+//    public  String generateNumberCard() {
 //        StringBuilder cardNumber;
 //        do {
 //            cardNumber = new StringBuilder();

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./assets/img/logito.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/bank.css">
+    <link rel="stylesheet" href="./assets/form.css">
+
+    <title>Transactions</title>
+
+</head>
+
+<body>
+
+    <div class="layout d-flex flex-column" id="app">
+        <header>
+            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="./index.html"><img src="./assets/img/logito.png"
+                            class="navbar__logo"></a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <h3 class="titulaso">MINDBRO BANK</h3>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav d-flex justify-content-evenly w-100">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="./accounts.html">Accounts</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="./cards.html">Cards</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="./loan-application.html">Loans</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="./transfers.html">transfer</a>
+                            </li>
+
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="login.html">log in</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+
+        </header>
+
+        <main class="flex-grow-1">
+
+
+                        
+            <div class="formulario">
+                <h1>Transactions</h1>
+                <form method="post">
+                    
+                    <div class="form__input-box">
+                     <p> destination type</p>
+           
+                        
+                         <div class="flex__center2 flex-column" > 
+                            <div class="flex__center2">
+                                <input type="radio"  name="transfer-destiny" id="own" value="own" class="especial2" v-model="type">
+                                <label  for="own">own</label>
+                               
+                            </div>       
+                            <!-- <div class="flex__center2 " :class="destinationType" id="collapse"></div>  -->
+
+                            
+                            <div  class="d-block" id="collapse">
+                              <select class="own__accounts"  v-model="accountDestiny" class="source__acount">
+                              <option v-for="account of accounts" :value="account.number">{{account.number}}</option>
+                                </select>
+                            </div>
+                        
+                        </div>
+            
+
+                        <div class="d-flex flex-column flex__center2"> 
+                            <div>
+                                <input type="radio" name="transfer-destiny" id="other" value="other" v-model="type">
+                                <label for="other">other</label>
+                                
+                                <div :class="destinationType" class="d-block" id="collapse1">
+                                    <input type="text" class="collapse__input" v-model="accountDestiny">
+                                    </div>
+                                    
+                                </div>       
+                            
+                         </div>
+                      
+
+                    </div>
+
+
+                <div class="form__input-box">
+                    <h6>source account</h6>
+                
+                        <select v-model="accountOrigin" class="source__acount">
+                        <option v-for="account of accounts" :value="account.number">{{account.number}} ${{account.balance}}</option>
+                        </select>
+
+
+                    </div>
+
+                  
+    
+                    
+
+                    <div class="form__input-box">
+                        <h5>Amount</h5>
+                        $<input type="text" class="source__acount" v-model="amount">
+                        
+
+                    </div>
+
+                       <div class="form__input-box">
+                        <h5>Description</h5>
+                        <input type="text" class="source__acount" v-model="description">
+                           
+   
+                       </div>
+
+           
+            <input type="button" @click="generateTransfer" value="Transfer">
+              
+                    <div class="registrarse">
+                         <a href="#"> </a>
+                    </div>
+        
+                </form>
+        </div>
+
+
+        <!-- alternativa -->
+
+            <!-- <section class="d-flex justify-content-center align-items-center flex-column m-3">
+                <h1>Transactions</h1>
+
+                <div>
+                    <label for="own">own</label>
+                    <input type="radio" name="type" id="own" value="own" v-model="type">
+
+                    <label for="other">other</label>
+                    <input type="radio" name="type" id="other" value="other" v-model="type">
+                </div>
+
+            </section>
+            <div v-if="type == 'own'">
+                <form class="d-flex flex-column align-items-center">
+                    <div class="d-flex flex-column">
+                        <select>
+                            <option value="account1">accoun1</option>
+                        </select>
+                    </div>
+                    <div class="d-flex flex-column">
+                        <label for="amount">amount</label>
+                        <input type="number" name="amount" id="amount">
+                    </div>
+                    <div class="d-flex flex-column">
+                        <label for="description">description</label>
+                        <input type="text" name="description" id="description">
+                    </div>
+
+
+                    <button class="m-2" @click="generateTransfer">transfer</button>
+                </form>
+            </div>
+
+
+            <br> -->
+            <!--form2-->
+            <!-- <div v-if="type == 'other'">
+                <form class="d-flex flex-column align-items-center">
+                    <div class="d-flex flex-column ">
+                        <label for="account">account</label>
+                        <input type="text" name="account" id="account">
+                    </div>
+                    <div class="d-flex flex-column ">
+                        <label for="amount">amount</label>
+                        <input type="number" name="amount" id="amount">
+                    </div>
+                    <div class="d-flex flex-column ">
+                        <label for="description">description</label>
+                        <input type="text" name="description" id="description">
+                    </div>
+                    <button class="m-2" @click="generateTransfer">transfer</button>
+                </form>                
+            </div>
+            <div v-if="type == ''">
+                <h3>selecciona el tipo de cuenta</h3>
+            </div> -->
+
+            <!-- fin alternativa -->
+
+
+        </main>
+
+        <footer class="main__footer">
+            <div class="link__social">
+                <img src="./assets/img/facebook.png" alt="">
+                <img src="./assets/img/whatsapp.png" alt="">
+                <img src="./assets/img/instagram.png" alt="">
+            </div>
+            <p>All rights reserved</p>
+
+        </footer>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script src="./assets/transfer.js"> </script>
+
+</html>

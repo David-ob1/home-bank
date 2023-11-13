@@ -20,6 +20,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static com.mindhub.homebanking.utils.AccountUtils.generateNumberA;
+
 @RestController
 @RequestMapping("/api")
 public class ClientController {
@@ -33,14 +35,14 @@ public class ClientController {
     @Autowired
     private AccountController accountController;
 
-@RequestMapping("/clients")
+@GetMapping("/clients")
     public List<ClientDTO> getAllClients(){
     List<ClientDTO> clients = clientService.findAllClients().stream().map(client -> new ClientDTO(client)).collect(Collectors.toList());
     return clients;
 }
 
 
-    @RequestMapping("/clients/{id}")
+    @GetMapping("/clients/{id}")
     public ClientDTO getClient(@PathVariable Long id){
 //no se rompe la aplicacion si no se cumple
         ClientDTO foundClient = new ClientDTO(clientService.findClientById(id));
@@ -48,7 +50,7 @@ public class ClientController {
     }
 
 
-    @RequestMapping(path = "/clients", method = RequestMethod.POST)
+    @PostMapping("/clients")
     public ResponseEntity<Object> register(
             @RequestParam String name, @RequestParam String lastName,
             @RequestParam String email, @RequestParam String password) {
@@ -67,7 +69,7 @@ public class ClientController {
         }
 
         if(password.isEmpty() || password.isBlank()){
-            return new ResponseEntity<>("the name is not valid,complete it please.", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("the password is not valid,complete it please.", HttpStatus.FORBIDDEN);
         }
 
 
@@ -78,7 +80,7 @@ public class ClientController {
 
         Client client = new Client(name, lastName, email, passwordEncoder.encode(password));
         clientService.saveClient(client);
-        Account account = new Account(accountController.generateNumberA(1l,100000000l), LocalDate.now(),0);
+        Account account = new Account(generateNumberA(1l,100000000l), LocalDate.now(),0);
         client.addAccount(account);
         accountService.saveAccount(account);
 
@@ -87,7 +89,7 @@ public class ClientController {
 
 
 
-    @RequestMapping("/clients/current")
+    @GetMapping("/clients/current")
     public ClientDTO getAll(Authentication authentication){
         return new ClientDTO(clientService.findClientByEmail(authentication.getName()));
     }

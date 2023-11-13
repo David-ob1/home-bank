@@ -8,6 +8,8 @@
 
 }
 
+
+
 .formulario{
 	position: absolute;
 	top:50%;
@@ -156,6 +158,7 @@ input[type="button"]:hover{
 
     align-items: center;
 	padding: .5rem;
+	/* border: 1px solid black; */
    
 }
 
@@ -170,13 +173,45 @@ input[type="button"]:hover{
 	/* text-transform: ; */
 }
 .collapse__input{
-	width: 50%;
+	width: 70%;
 }
 
-.info__dinamic{
+.flex__center2{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.own__accounts{
+	width: 70%;
+
+}
+
+/* #own{
+	
+} */
+.collapse__input, .own__accounts{
+
+	display: none;
+
+} 
+
+/* #own:checked  ~ .own__accounts{
+	display: block;
+}
+
+#other:checked  ~ .collapse__input{
+	display: block;
+} */
+
+
+
+
+/* .info__dinamic{
 	width: 40%;
 }
 
 @media max-width {
 	
 }
+

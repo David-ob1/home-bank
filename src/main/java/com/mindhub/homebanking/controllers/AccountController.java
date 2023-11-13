@@ -22,6 +22,8 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static com.mindhub.homebanking.utils.AccountUtils.generateNumberA;
+
 
 @RestController
 @RequestMapping("/api")
@@ -34,7 +36,7 @@ public class AccountController {
     private ClientService clientService;
 
 
-    @RequestMapping("/accounts")
+    @GetMapping("/accounts")
     public List<AccountDTO> getAllAccounts(){
 
         List<Account> accounts = accountService.findAllAccounts();
@@ -48,7 +50,7 @@ public class AccountController {
         return accountDTOS;
     }
 
-    @RequestMapping("/clients/current/accounts")
+    @GetMapping("/clients/current/accounts")
     public List<AccountDTO> getAll(Authentication authentication) {
         Client client = (clientService.findClientByEmail(authentication.getName()));
         List<AccountDTO> accounts = client.getAccounts().stream().map(account -> new AccountDTO(account)).collect(Collectors.toList());
@@ -64,7 +66,7 @@ public class AccountController {
 //        return foundAccount;
 //    }
 
-    @RequestMapping("/accounts/{id}")
+    @GetMapping("/accounts/{id}")
     public ResponseEntity<Object> getAccount(Authentication authentication,
                                              @PathVariable Long id) {
         Client client = (clientService.findClientByEmail(authentication.getName()));
@@ -88,7 +90,7 @@ public class AccountController {
 
 
 
-    @RequestMapping(path = "/clients/current/accounts", method = RequestMethod.POST)
+    @PostMapping("/clients/current/accounts")
     public ResponseEntity<Object> createAccount(Authentication authentication){
         Client client = clientService.findClientByEmail(authentication.getName());
 
@@ -108,26 +110,10 @@ public class AccountController {
     }
 
 
-    public String generateNumberA(long min, long max) {
-//       List<AccountDTO> account = getAllAccounts();
-//       Set<String> accounetSet = account.stream().map(accountDTO ->
-//           accountDTO.getNumber()
-//
-//       ).collect(Collectors.toSet());
 
-        String aux = "VIN-";
-        long number;
-        int numberOfDigits = 8;
-        //expreso el numero en el formato deseado  //numeros como maximo 8 d
-        String formatString = "%0" + numberOfDigits + "d";
-        String numberCompleted;
-        do{
-            number = ThreadLocalRandom.current().nextLong(min, max);
-            numberCompleted = aux +String.format(formatString,number);
-        }
-        while(accountService.existsAccountByNumber(numberCompleted));
-        return numberCompleted;
-    }
+
+
+
 
 
 //    @PostMapping("/clients/current/accounts")

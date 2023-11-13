@@ -21,6 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+
+import static com.mindhub.homebanking.utils.TransactionUtils.dateTime;
+
 @RestController
 @RequestMapping ("/api")
 public class TransactionController {
@@ -92,8 +95,8 @@ public class TransactionController {
         //account == Authentication
 
         // son 2 pasa de uno a otro
-        Transaction transaction1 = new Transaction(TransactionType.DEBIT,(-amount),accountDebit.getNumber() + description, LocalDateTime.now());
-        Transaction transaction2 = new Transaction(TransactionType.CREDIT,amount, accountCredit.getNumber() + description, LocalDateTime.now());
+        Transaction transaction1 = new Transaction(TransactionType.DEBIT,(-amount),accountDebit.getNumber() + description,dateTime());
+        Transaction transaction2 = new Transaction(TransactionType.CREDIT,amount, accountCredit.getNumber() + description,dateTime() );
 
         //guardo las transaction 1 y 2 tanto en el repository como en las cuentas
         transactionService.saveTransaction(transaction1);
@@ -108,6 +111,9 @@ public class TransactionController {
 
         return new ResponseEntity<>("the transaction was successful",HttpStatus.CREATED);
     }
+
+
+
 
 
     }

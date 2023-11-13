@@ -14,6 +14,11 @@ const { createApp } = Vue
       .then(response => 
         this.getData()
         )
+
+
+        axios.get('http://localhost:8080/api/clients/current',{headers:{'accept':'application/xml'}}).then(response =>
+
+ console.log(response.data))
     },
 
     methods:{

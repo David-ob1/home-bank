@@ -9,10 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -35,7 +32,7 @@ public class LoanController {
 
 
 
-    @RequestMapping("/loans")
+    @GetMapping("/loans")
     public ResponseEntity<List<LoanDTO>> getAllLoans(Authentication authentication) {
         Client client = clientService.findClientByEmail(authentication.getName());
         if (client == null) {
@@ -93,7 +90,7 @@ public class LoanController {
             return new ResponseEntity<>("You have already applied for this loan", HttpStatus.FORBIDDEN);
         }
 
-        ClientLoan clientLoan = new ClientLoan(loanApplicationDTO.getAmount() * 1.20,
+        ClientLoan clientLoan = new ClientLoan(loanApplicationDTO.getAmount() * 1.2,
                 loanApplicationDTO.getPayments());
 
         client.addClientLoan(clientLoan);
