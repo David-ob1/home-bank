@@ -7,14 +7,12 @@ import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.CardRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
 import com.mindhub.homebanking.services.CardService;
+import com.mindhub.homebanking.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 
@@ -25,6 +23,9 @@ public class CardController {
     @Autowired
     private CardService cardService;
 
+    @Autowired
+    private ClientService clientService;
+
 
     @PostMapping("/clients/current/cards")
     public ResponseEntity <Object> createCard
@@ -33,6 +34,25 @@ public class CardController {
         return cardService.createCard(cardColor,cardType,authentication);
     }
 
+
+    @PatchMapping("/clients/current/cards")
+    public ResponseEntity<?> removeCard(Authentication authentication, @RequestParam String cardNumber, @RequestParam Boolean active){
+
+        String email = authentication.getName();
+        Client client = clientService.findClientByEmail(email);
+
+//       if(!clientService.existsClientByEmail(email)){
+//           return new ResponseEntity<>("")
+//       }
+
+        Card cardToDelete = cardService.findCardByNumber(cardNumber);
+
+        cardToDelete.setActive(false);
+        cardService.saveCard(cardToDelete);
+
+        return  new ResponseEntity<>("the card was removed for you account",HttpStatus.CREATED);
+
+    }
 
     public int generateRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);

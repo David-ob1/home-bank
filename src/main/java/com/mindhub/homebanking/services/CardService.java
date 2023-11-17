@@ -1,5 +1,6 @@
 package com.mindhub.homebanking.services;
 
+import com.mindhub.homebanking.models.Card;
 import com.mindhub.homebanking.models.CardColor;
 import com.mindhub.homebanking.models.CardType;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,10 @@ public interface CardService  {
     public String generateNumberCard();
 
     public String generateCvvCard();
+
+    public Card findCardByNumber( String cardNumber);
+
+    public void saveCard(Card card);
 
     interface loanService {
     }

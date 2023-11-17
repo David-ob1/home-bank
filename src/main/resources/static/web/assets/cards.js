@@ -8,10 +8,13 @@ const { createApp } = Vue
         creditCards:[],
         client:{},
         transactions:{},
-      
+        currentDate:new Date(),
       }
     },
     created(){
+
+      // this.currentDate = new Date("Jul 02 2010")
+      // console.log(this.currentDate)
 
     //    let parametro = location.search
     //     let params = new URLSearchParams(parametro)
@@ -47,6 +50,10 @@ const { createApp } = Vue
                    console.log("sign out!")
                    location.href ="login.html"
                })
+           },
+
+           deleteCard(){
+            
            }
      
      

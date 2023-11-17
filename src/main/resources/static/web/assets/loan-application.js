@@ -65,9 +65,11 @@ createApp({
           const userData = {"idLoan":`${this.loanId}`,"amount":`${this.amount}`,"payments":`${this.dues}`,"destinationAccount":`${this.accountDestiny}`}
             axios.post(`/api/loans`, userData)
             .then(() => {location.href = "/web/loan-application.html";})
-            .catch(error => { alert(error)
-                      console.log(error)
-            });
+            .catch(error => Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: error.response.data,
+            }));
 
   }
 

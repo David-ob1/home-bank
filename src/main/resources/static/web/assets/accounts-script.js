@@ -64,7 +64,7 @@ const { createApp } = Vue
           console.log(this.accounts)
   
           this.loans = this.client.loans
-       })
+       }).catch(error => console.log(error))
 
 
       }

@@ -39,14 +39,14 @@ public class CardServiceImplement implements CardService {
 //        }
 
 
-                if(cardRepository.existsByColorAndTypeAndClient(cardColor,cardType,client)){
+                if(cardRepository.existsByColorAndTypeAndClientAndActive(cardColor,cardType,client,true)){
                     return  new ResponseEntity<>("you already have that card", HttpStatus.FORBIDDEN);
                 }
 
 
 
 
-        Card card = new Card(client.getName() + " " + client.getLastName(), cardType, cardColor, generateNumberCard(), generateCvvCard(), LocalDate.now().plusYears(5), LocalDate.now());
+        Card card = new Card(client.getName() + " " + client.getLastName(), cardType, cardColor, generateNumberCard(), generateCvvCard(), LocalDate.now().plusYears(5), LocalDate.now(),true);
 
         client.addCard(card);
         cardRepository.save(card);
@@ -88,5 +88,16 @@ public class CardServiceImplement implements CardService {
         return cardNumber.toString();
 
     }
+
+    @Override
+    public Card findCardByNumber(String cardNumber){
+       Card cardFind =  cardRepository.findCardByNumber(cardNumber);
+        return cardFind;
+    }
+
+    @Override
+    public void saveCard(Card card){
+        cardRepository.save(card);
+    };
 
 }

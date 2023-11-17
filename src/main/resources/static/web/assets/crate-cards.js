@@ -25,8 +25,8 @@ createApp({
               showCancelButton: true,
               confirmButtonColor: "#3085d6",
               cancelButtonColor: "#d33",
-              confirmButtonText: "Yes, delete it!",
-              cancelButtonText: "No, cancel!"
+              confirmButtonText: "Yes ",
+              cancelButtonText: "No "
             }).then((result) => {
               if (result.isConfirmed) {
 
@@ -48,14 +48,14 @@ createApp({
                   
                 })
                 
-                .catch(error => 
-                  Swal.fire({
-                    icon: "error",
-                    title: "Oops...",
-                    text: `${error.response.data}`,
+                .catch(error => console.log(error)
+                  // Swal.fire({
+                  //   icon: "error",
+                  //   title: "Oops...",
+                  //   text: `${error.response.data}`,
                   
-                  })
-  
+                  // })
+                  
                   
                   )
                

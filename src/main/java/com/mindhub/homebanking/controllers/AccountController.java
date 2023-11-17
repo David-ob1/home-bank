@@ -87,9 +87,6 @@ public class AccountController {
 
 
 
-
-
-
     @PostMapping("/clients/current/accounts")
     public ResponseEntity<Object> createAccount(Authentication authentication){
         Client client = clientService.findClientByEmail(authentication.getName());
@@ -108,10 +105,6 @@ public class AccountController {
         //   Account account1 = new Account("VIN001", LocalDate.now(),5000);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-
-
-
-
 
 
 

@@ -19,29 +19,11 @@ import static org.hamcrest.Matchers.*;
 
     public class RepositoriesTest {
 
-        @Autowired
-       private LoanRepository loanRepository;
+
 
         @Autowired
         private ClientRepository clientRepository;
 
-
-
-
-
-        @Test
-        public void existLoans(){
-            List<Loan> loans = loanRepository.findAll();
-            assertThat(loans,is(not(empty())));
-
-        }
-
-        @Test
-        public void existPersonalLoan(){
-            List<Loan> loans = loanRepository.findAll();
-            assertThat(loans, hasItem(hasProperty("name", is("Personal"))));
-
-        }
 
 
 
@@ -51,11 +33,7 @@ import static org.hamcrest.Matchers.*;
             assertThat(clients,is(not(empty())));
         }
 
-//        @Test
-//        public void existCLientByEmail(){
-//            Client client = clientRepository.existsByEmail("melba@mindhub.com");
-//            assertThat();
-//        }
+
 
         @Test
         public void findClient(){

@@ -182,19 +182,24 @@ input[type="button"]:hover{
 	justify-content: center;
 }
 
-.own__accounts{
-	width: 70%;
+.destiny__accounts{
+
+	width: 5rem;
 
 }
 
 /* #own{
 	
+
+
 } */
-.collapse__input, .own__accounts{
+ 
+
+/* .collapse__input, .own__accounts{
 
 	display: none;
 
-} 
+}  */
 
 /* #own:checked  ~ .own__accounts{
 	display: block;
@@ -204,7 +209,11 @@ input[type="button"]:hover{
 	display: block;
 } */
 
-
+/* .display__none{
+	background-color: red;
+	border-bottom: blue;
+	width: 10rem	;
+} */
 
 
 /* .info__dinamic{
@@ -214,4 +223,44 @@ input[type="button"]:hover{
 @media max-width {
 	
 }
+*/
+@media(max-width: 320px){
 
+
+    .titulaso{
+        font-size:17px;
+    }
+
+.formulario{
+	box-sizing: border-box;
+	width: 98%;
+}
+
+.formulario h5{
+	font-size:17px;
+}
+
+} 
+
+
+
+@media(min-width:321px) and (max-width:420px){
+
+	.titulaso{
+        font-size:17px;
+    }
+
+.formulario{
+	box-sizing: border-box;
+	width: 96%;
+}
+
+.formulario h5{
+	font-size:17px;
+}
+
+} 
+
+
+
+	}

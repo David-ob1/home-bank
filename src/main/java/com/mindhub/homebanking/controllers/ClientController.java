@@ -56,25 +56,30 @@ public class ClientController {
             @RequestParam String email, @RequestParam String password) {
 
 
-        if(name.isEmpty() || name.isBlank()){
-            return new ResponseEntity<>("the name is not valid,complete it please.", HttpStatus.FORBIDDEN);
-        }
+        boolean nameEmpty = name.isBlank();
+        boolean lastNameEmpty = lastName.isBlank();
+        boolean emailEmpty = email.isBlank();
+        boolean passwordEmpty = password.isBlank();
 
-        if(lastName.isEmpty() || lastName.isBlank()){
-            return new ResponseEntity<>("the last name is not valid,complete it please.", HttpStatus.FORBIDDEN);
-        }
 
-        if(email.isEmpty() || email.isBlank()){
-            return new ResponseEntity<>("the email is not valid,complete it please.", HttpStatus.FORBIDDEN);
-        }
+            if(name.isBlank()||lastName.isBlank()||
+                email.isBlank()||password.isBlank()){
 
-        if(password.isEmpty() || password.isBlank()){
-            return new ResponseEntity<>("the password is not valid,complete it please.", HttpStatus.FORBIDDEN);
-        }
+                StringBuilder response = new StringBuilder();
+
+                response.append(nameEmpty ? "the name is not valid,complete it please." : "");
+                response.append(lastNameEmpty ? "the last name is not valid,complete it please." : "");
+                response.append(emailEmpty ? "the email is not valid,complete it please." : "");
+                response.append(passwordEmpty ? "the password is not valid,complete it please." : "");
+
+                return new ResponseEntity<>(response.toString(), HttpStatus.FORBIDDEN);
+            }
+
 
 
         if (clientService.existsClientByEmail(email)) {
             return new ResponseEntity<>("Email already in use", HttpStatus.FORBIDDEN);
+
         }
 
 
@@ -93,6 +98,28 @@ public class ClientController {
     public ClientDTO getAll(Authentication authentication){
         return new ClientDTO(clientService.findClientByEmail(authentication.getName()));
     }
+
+
+
+
+
+
+
+//        if(name.isEmpty() || name.isBlank()){
+//            return new ResponseEntity<>("the name is not valid,complete it please.", HttpStatus.FORBIDDEN);
+//        }
+//
+//        if(lastName.isEmpty() || lastName.isBlank()){
+//            return new ResponseEntity<>("the last name is not valid,complete it please.", HttpStatus.FORBIDDEN);
+//        }
+//
+//        if(email.isEmpty() || email.isBlank()){
+//            return new ResponseEntity<>("the email is not valid,complete it please.", HttpStatus.FORBIDDEN);
+//        }
+//
+//        if(password.isEmpty() || password.isBlank()){
+//            return new ResponseEntity<>("the password is not valid,complete it please.", HttpStatus.FORBIDDEN);
+//        }
 
 
 

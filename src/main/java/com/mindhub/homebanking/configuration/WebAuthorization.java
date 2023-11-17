@@ -52,7 +52,7 @@ public class WebAuthorization{
 
         http.logout().logoutUrl("/api/logout");
 
-        //hace q no se pueda complicar la solicitud sin el token  pero nostros la desactivamos
+        //hace q no se pueda completar la solicitud sin el token  pero nostros la desactivamos
         http.csrf().disable();//no solo form
 
             //permite ingresar paginas de 3ros

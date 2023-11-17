@@ -26,6 +26,7 @@ public class Loan {
     private Set<ClientLoan> clientLoans = new HashSet<>();
 
 
+
     public Loan (){
 
     }
@@ -74,7 +75,7 @@ public class Loan {
     }
 
     public List<Client> getClient() {
-        return clientLoans.stream().map(client -> client.getClient()).collect(Collectors.toList());
+        return clientLoans.stream().map(clientLoan -> clientLoan.getClient()).collect(Collectors.toList());
     }
 
 

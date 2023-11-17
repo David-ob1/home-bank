@@ -74,15 +74,14 @@
                         
                          <div class="flex__center2 flex-column" > 
                             <div class="flex__center2">
-                                <input type="radio"  name="transfer-destiny" id="own" value="own" class="especial2" v-model="type">
+                                <input type="radio" name="transfer-destiny" id="own" value="own" class="especial2" v-model="type">
                                 <label  for="own">own</label>
                                
                             </div>       
-                            <!-- <div class="flex__center2 " :class="destinationType" id="collapse"></div>  -->
-
                             
-                            <div  class="d-block" id="collapse">
-                              <select class="own__accounts"  v-model="accountDestiny" class="source__acount">
+                            <div v-if="type == 'own'" class="flex__center2  m-2" id="collapse">
+                              <select   v-model="accountDestiny" class="destiny__accounts ">
+
                               <option v-for="account of accounts" :value="account.number">{{account.number}}</option>
                                 </select>
                             </div>
@@ -95,11 +94,11 @@
                                 <input type="radio" name="transfer-destiny" id="other" value="other" v-model="type">
                                 <label for="other">other</label>
                                 
-                                <div :class="destinationType" class="d-block" id="collapse1">
-                                    <input type="text" class="collapse__input" v-model="accountDestiny">
-                                    </div>
+                                <div v-if="type == 'other'" :class="destinationType"  id="collapse1">
+                                    <input type="text" class="destiny__accounts" v-model="accountDestiny">
+                                </div>
                                     
-                                </div>       
+                               </div>       
                             
                          </div>
                       
@@ -123,7 +122,7 @@
 
                     <div class="form__input-box">
                         <h5>Amount</h5>
-                        $<input type="text" class="source__acount" v-model="amount">
+                        $<input type="number" class="source__acount" v-model="amount">
                         
 
                     </div>

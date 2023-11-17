@@ -91,12 +91,18 @@ public class TransactionController {
             return new ResponseEntity<>("the destiny account doesn't exist", HttpStatus.FORBIDDEN);
         }
 
+//        if (amount.isNaN()) {
+//                return new ResponseEntity<>("the amount must be a number", HttpStatus.FORBIDDEN);
+//
+//        }
 
         //account == Authentication
 
+
+
         // son 2 pasa de uno a otro
-        Transaction transaction1 = new Transaction(TransactionType.DEBIT,(-amount),accountDebit.getNumber() + description,dateTime());
-        Transaction transaction2 = new Transaction(TransactionType.CREDIT,amount, accountCredit.getNumber() + description,dateTime() );
+        Transaction transaction1 = new Transaction(TransactionType.DEBIT,(-amount),accountDebit.getNumber() + description,dateTime(),accountDebit.getBalance() - amount );
+        Transaction transaction2 = new Transaction(TransactionType.CREDIT,amount, accountCredit.getNumber() + description,dateTime(),accountCredit.getBalance() + amount );
 
         //guardo las transaction 1 y 2 tanto en el repository como en las cuentas
         transactionService.saveTransaction(transaction1);

@@ -13,23 +13,20 @@ createApp({
   },
 
   created() {
-    // axios
-    //   .get("/api/clients/current/accounts")
-    //   .then((response) => {
-    //     this.accounts = response.data;
-    //     console.log(this.accounts);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
+    axios
+      .get("/api/clients/current/accounts")
+      .then((response) => {
+        this.accounts = response.data;
+        console.log(this.accounts);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
    
   },
 
   methods: {
    
-
-
-
     generateTransfer() {
       const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
@@ -67,7 +64,14 @@ createApp({
               })
 
               .catch((error) => {
-                alert(error);
+                
+
+                Swal.fire({
+                  icon: "error",
+                  title: "Oops...",
+                  text: error.response.data,
+                });
+
                 console.log(error);
               });
           } else if (
@@ -82,22 +86,32 @@ createApp({
           }
         });
     },
+    // destinationType(){
+    //   if(this.type == "own"){
+    //     console.log(this.type)
+    //     return "d-block"
 
-    destinationType(){
-      if(this.type == "own"){
-        console.log(this.type)
-        return "d-block"
+    //   }
 
-      }
+    //   if(this.type == "other"){
+    //     console.log(this.type)
+    //     return "d-block"
+    //   }else{
+    //    alert ("hola")
+    //   }
 
-      if(this.type == "other"){
-        console.log(this.type)
-        return "d-block"
-      }else{
-       alert ("hola")
-      }
-
-
-    }
+    // }
   },
+
+  computed:{
+    
+
+
+  }
+
+
+
+   
+
+
 }).mount("#app");
