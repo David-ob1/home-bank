@@ -33,28 +33,28 @@ public class Card {
     public Card() {
     }
 
-    public Card(String s, CardType cardType, CardColor cardColor, String string, String generateCvvCard, LocalDate localDate, LocalDate now, Boolean b) {
-    }
+//    public Card(String s, CardType cardType, CardColor cardColor, String string, String generateCvvCard, LocalDate localDate, LocalDate now, Boolean b) {
+//    }
 
-    public Card(long id, String cardholder, CardType type, CardColor color, String number, String cvv, LocalDate thruDate, LocalDate fromDate, Client client, Boolean active) {
-        this.id = id;
+    public Card( String cardholder, CardType type, CardColor color, String number, String cvv, LocalDate thruDate, LocalDate fromDate, Boolean active) {
         this.cardholder = cardholder;
         this.type = type;
         this.color = color;
         this.number = number;
         this.cvv = cvv;
-        this.active = active;
         this.thruDate = thruDate;
         this.fromDate = fromDate;
-        this.client = client;
+//        this.client = client;
+        this.active = active;
+
     }
 
 
 
 
 
-    public Card(String s, CardType cardType, String s1, String number, LocalDate localDate, LocalDate now) {
-    }
+//    public Card(String s, CardType cardType, String s1, String number, LocalDate localDate, LocalDate now) {
+//    }
 
     public long getId() {
         return id;

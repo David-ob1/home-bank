@@ -8,6 +8,7 @@ import com.mindhub.homebanking.repositories.CardRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
 import com.mindhub.homebanking.services.CardService;
 import com.mindhub.homebanking.services.ClientService;
+import com.mindhub.homebanking.utils.CardUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,14 +37,16 @@ public class CardController {
 
 
     @PatchMapping("/clients/current/cards")
-    public ResponseEntity<?> removeCard(Authentication authentication, @RequestParam String cardNumber, @RequestParam Boolean active){
+    public ResponseEntity<?> removeCard(Authentication authentication, @RequestParam String cardNumber){
 
         String email = authentication.getName();
         Client client = clientService.findClientByEmail(email);
 
-//       if(!clientService.existsClientByEmail(email)){
-//           return new ResponseEntity<>("")
-//       }
+       if(!clientService.existsClientByEmail(email)){
+           return new ResponseEntity<>("the client don't exist ", HttpStatus.CONFLICT);
+       }
+
+
 
         Card cardToDelete = cardService.findCardByNumber(cardNumber);
 
@@ -58,17 +61,21 @@ public class CardController {
         return (int) ((Math.random() * (max - min)) + min);
     }
 
-//    public  String generateNumberCard() {
-//        StringBuilder cardNumber;
-//        do {
+    public  String generateNumberCard() {
+        String cardNumber;
+        do {
 //            cardNumber = new StringBuilder();
 //            for (int i = 0; i < 16; i++) {
 //                cardNumber.append(generateRandomNumber(0, 9));
 //                if ((i + 1) % 4 == 0 && i != 15) cardNumber.append("-");
-//            }
-//        } while (cardRepository.existsByNumber(cardNumber.toString()));
-//        return cardNumber.toString();
-//    }
+
+          cardNumber =  CardUtils.generateNumberCard();
+
+
+
+        } while (cardService.existByNumber(cardNumber));
+        return cardNumber.toString();
+    }
 //
 //
 //

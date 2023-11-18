@@ -96,6 +96,11 @@ public class CardServiceImplement implements CardService {
     }
 
     @Override
+    public Boolean existByNumber(String cardNumber) {
+        return  cardRepository.existsByNumber(cardNumber);
+    }
+
+    @Override
     public void saveCard(Card card){
         cardRepository.save(card);
     };

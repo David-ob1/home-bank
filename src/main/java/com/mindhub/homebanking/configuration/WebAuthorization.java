@@ -37,6 +37,7 @@ public class WebAuthorization{
             .antMatchers("/api/loans").hasAuthority("CLIENT")
                 //api/clients/current/transfer
             .antMatchers("/api/clients/current/**").hasAuthority("CLIENT")
+            .antMatchers("/api/clients").hasAuthority("ADMIN")
 
 
 
@@ -50,13 +51,14 @@ public class WebAuthorization{
                 .passwordParameter("password")
                 .loginPage("/api/login");
 
-        http.logout().logoutUrl("/api/logout");
+        http.logout().logoutUrl("/api/logout").deleteCookies();
 
         //hace q no se pueda completar la solicitud sin el token  pero nostros la desactivamos
-        http.csrf().disable();//no solo form
+        http.csrf().disable();//no solo form de login
 
             //permite ingresar paginas de 3ros
         http.headers().frameOptions().disable();
+
 
 
     // si entro sin estar autenticado

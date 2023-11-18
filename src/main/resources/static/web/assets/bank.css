@@ -1,12 +1,22 @@
 :root{
     --bg-item:#0d6efd;
+    --color-main:#008a81;
+    --color-main-hover: #00645e;
 }
 
 .layout{
     min-height: 100vh;
-     background-color: aquamarine; /*#008a81 */
+     /* background-color: aquamarine; --color-main:#008a81; */
+     background:url("./img/degradado1.jfif");
+     background-repeat: no-repeat;
+     background-size: cover;
     margin: 0;
     padding:0;
+    color: white;
+}
+
+.nav-link{
+    font-size: 20px !important;
 }
 
 .navbar__logo{
@@ -27,6 +37,10 @@
     
 }
 
+.titulaso{
+    color: #333;
+}
+
 .btn__crateAcc{
         width: 80%;
         text-transform: uppercase;
@@ -34,7 +48,7 @@
         padding: .5rem;
         margin: .5rem;
         margin-bottom:1rem;
-        background-color: var(--bg-item);
+        background-color: var(--color-main);
         color: white;
         font-weight: 500;
         font-size: 25px;
@@ -43,7 +57,7 @@
 }
 
 .btn__crateAcc:hover{
-    background-color: #2c7ffd;
+    background-color:var(--color-main-hover);
 }
 
 .btn__crateAcc:active{
@@ -51,7 +65,7 @@
 }
 
 .card{
-    box-shadow:0px 0px 3px 1px  rgb(223, 223, 223);
+    box-shadow:0px 0px 3px 1px  #25252599;
 }
 
 .virtual__cash{
@@ -126,7 +140,7 @@ font-size: 25px;
 }
 
 .credit {
-    color:#008a81 !important;
+    color:var(--color-main) !important;
 
 }
 
@@ -134,22 +148,12 @@ font-size: 25px;
    height: 1rem!important ;
 }
 
-footer{
-    /* height: 3rem; */
-    background-color: #008a81;
-    color: white;
-}
+
 
 /* cartas */
 
 @import url('https://fonts.googleapis.com/css2?family=josefin+Sans:wght@400;500;600;700&display=swap');
 
-.container-ext {
-    font-family: 'Josefin Sans', sans-serif;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 
 .card-ext {
     transform: scale(.8);
@@ -200,9 +204,20 @@ footer{
     backface-visibility: hidden;
 }
 
+/* d-flex justify-content-around  flex-column flex-wrap */
 .contenedor__allcards{
-    padding: 3rem
+    padding: 3rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: start;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 100%;
+
+  
 }
+
+
 .card-titanium-front,
 .card-titanium-back {
     width: 100%;
@@ -341,6 +356,50 @@ footer{
     transform: rotateY(-180deg);
 }
 
+/* fin carta */
+
+/* d-flex flex-column justify-content-around */
+.cards__debits{
+    display: flex;
+    flex-direction: column;
+    justify-content:space-around ;
+    align-items: left;
+    font-family: 'Josefin Sans', sans-serif;
+    background-image:url("/web/assets/img/cardImg.jpg");
+    height: 100%;
+    width:100%;
+    background-color: white;
+    background-size: contain;
+    background-position:right;
+    background-repeat:no-repeat ;
+    padding: 3.5rem;
+}
+
+
+.cards__credits{
+    display: flex;
+    flex-direction: column;
+    justify-content:space-around ;
+    align-items: left;
+    font-family: 'Josefin Sans', sans-serif;
+    background-image:url("/web/assets/img/creditImg.jpg");
+    height: 100%;
+    width:100%;
+    background-color: white;
+    background-size: contain;
+    background-position:right;
+    background-repeat:no-repeat ;
+    padding: 3.5rem;
+
+}
+
+
+
+footer{
+    /* height: 3rem; */
+    background-color: var(--color-main);;
+    color: white;
+}
 
 .main__footer{
     display: flex;
@@ -374,12 +433,14 @@ height: 3.5rem;
     flex-wrap: wrap;
     width: 100%;
     align-items: center;
+   
     justify-content: center;
     gap: 1rem;
 }
 .view__main > div {
-    background-color:#008a81;
+    background-color:var(--color-main);
     border: 2px solid white;
+    box-shadow:0px 0px 6px 2.5px  #333; 
 }
 
 .view__main > div> img{
@@ -429,23 +490,50 @@ height: 3.5rem;
 .create__card{
 	width: 30rem;
 	height: 50px;
-	border: 1px solid;
+	/* border: 1px solid; */
 	/* background:#6c3483; */
 	/* border-radius: 25px; */
 	font-size: 18px;
 	color: white;
 	cursor: pointer;
 	outline: none; 
+    background-color: var(--color-main);
 }
 
 
 .create__card:hover{
     color: white;
 	transition: 0.5s;
+    background-color:var(--color-main-hover) ;
 }
 .expired card{
     background-color: #25252599;
 }
+
+.btn__transactions{
+    background:var(--color-main);;
+    color:white;
+}
+
+.btn__transactions:hover{
+    background:var(--color-main-hover);
+    color: white;
+
+}
+
+
+.cross__card{
+width: 7rem;
+position: absolute;
+transform: translate(170px,-180px);
+}
+/* .img__login{
+    height: 100%;
+    background:url("./img/loginImg.jpg");
+    background-size: cover;
+    width: 20rem;
+} */
+
 
 @media(max-width: 320px){
 
@@ -540,4 +628,11 @@ height: 3.5rem;
 .main__footer{
     padding: initial;
 }
+
+.cards__debits,
+.cards__credits{
+    align-items: center;
+    padding: 2rem;
+}
+
 }

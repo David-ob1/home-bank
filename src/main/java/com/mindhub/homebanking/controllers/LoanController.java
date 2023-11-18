@@ -51,6 +51,8 @@ public class LoanController {
         Client client = clientService.findClientByEmail(authentication.getName());
         Loan loan = loanService.findLoanById(loanApplicationDTO.getIdLoan());
         Account account = accountService.findAccountByNumber(loanApplicationDTO.getDestinationAccount());
+
+
         if (client == null) {
             return new ResponseEntity<>("Unknow client " + authentication.getName(),
                     HttpStatus.UNAUTHORIZED);
@@ -90,7 +92,10 @@ public class LoanController {
             return new ResponseEntity<>("You have already applied for this loan", HttpStatus.FORBIDDEN);
         }
 
-        ClientLoan clientLoan = new ClientLoan(loanApplicationDTO.getAmount() * 1.2,
+
+        Double interest = loan.getInterest();
+
+        ClientLoan clientLoan = new ClientLoan(loanApplicationDTO.getAmount() * (1 + interest) ,
                 loanApplicationDTO.getPayments());
 
         client.addClientLoan(clientLoan);
@@ -99,7 +104,7 @@ public class LoanController {
 
         Transaction transactionCredit = new Transaction(TransactionType.CREDIT,
                 loanApplicationDTO.getAmount(), loan.getName() + " Loan approved",
-                LocalDateTime.now(),account.getBalance() + loanApplicationDTO.getAmount() );
+                LocalDateTime.now(),account.getBalance() + loanApplicationDTO.getAmount(),true );
 
         transactionService.saveTransaction(transactionCredit);
         account.addTransaction(transactionCredit);
@@ -107,6 +112,9 @@ public class LoanController {
         accountService.saveAccount(account);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+
+
 
 
 }

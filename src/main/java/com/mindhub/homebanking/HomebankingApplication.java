@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static com.mindhub.homebanking.models.AccountType.SAVING;
 import static com.mindhub.homebanking.models.TransactionType.*;
 
 @SpringBootApplication
@@ -48,16 +49,16 @@ public class HomebankingApplication {	//esto es el main donde se trabaja
 			clientRepository.save(dolar);
 
 
-			Account account1 = new Account("VIN001", LocalDate.now(),5000);
-			Account account2 = new Account("VIN002", LocalDate.now().plusDays(1),7500);
+			Account account1 = new Account("VIN001", LocalDate.now(),5000,true,SAVING);
+			Account account2 = new Account("VIN002", LocalDate.now().plusDays(1),7500,true,SAVING);
 			client1.addAccount(account1);
 			client1.addAccount(account2);
 			accountRepository.save(account1);
 			accountRepository.save(account2);
 
 
-			Account account3 = new Account("VIN003", LocalDate.now(),200);
-			Account account4 = new Account("VIN004", LocalDate.now().plusDays(1),50);
+			Account account3 = new Account("VIN003", LocalDate.now(),200,true,SAVING);
+			Account account4 = new Account("VIN004", LocalDate.now().plusDays(1),50,true,SAVING);
 			client2.addAccount(account3);
 			client2.addAccount(account4);
 			accountRepository.save(account3);
@@ -83,9 +84,9 @@ public class HomebankingApplication {	//esto es el main donde se trabaja
 			List<Integer> paymentPersonal = List.of(6,12,24);
 			List<Integer> paymentAutomotive = List.of(6,12,24,36);
 
-			Loan loanA = new Loan("Mortgage",500000, paymentMortgage);
-			Loan loanB = new Loan("Personal",100000, paymentPersonal);
-			Loan loanC = new Loan("Automotive",300000, paymentAutomotive);
+			Loan loanA = new Loan("Mortgage",500000, paymentMortgage,0.8);
+			Loan loanB = new Loan("Personal",100000, paymentPersonal,0.5);
+			Loan loanC = new Loan("Automotive",300000, paymentAutomotive,0.3);
 
 			loanRepository.save(loanA);
 			loanRepository.save(loanB);

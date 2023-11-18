@@ -55,12 +55,13 @@
 
 
 
-        <div class="d-flex justify-content-around flex-wrap contenedor__allcards">
-            <div class="d-flex flex-column  align-items-center">
+        <div class=" contenedor__allcards">
+       
+            <div class="d-flex flex-column  align-items-center w-100">
                 <h3 class="h3-cards ">Debit Cards</h3>
 
 
-                <div class="container-ext d-flex justify-content-around">
+                <div v-if="debitCards.length > 0" class=" cards__debits">
 
 
                     <div v-if="debitCards.length !== 0" class="card-ext " v-for="card of debitCards">
@@ -115,20 +116,21 @@
                             
                         </div>
                         
-                        <div v-if="card.thruDate < currentDate.toLocaleDateString()" class="expired__card">
-                            <button>Tarjeta vencida</button>
+                        <div v-if="card.thruDate > currentDate.toLocaleDateString()" class="expired__card">
+                            <img src="./assets/img/Red_X.svg.png" class="cross__card    ">
                         </div>
 
+                        <button type="button" class="btn btn-danger " @click="deleteCard(card.number)">delete Card</button>
+                   
                     </div>
                 </div>                  
             </div>
            
-            
 
 
-            <div class="d-flex flex-column align-items-center">
+            <div class="d-flex flex-column  align-items-center w-100">
                 <h3 class="h3-cards">Credit Cards</h3>
-                <div class="container-ext d-flex justify-content-around">
+                <div class="container-ext d-flex justify-content-around cards__credits">
                     <div v-if="creditCards.length !== 0" class="card-ext" v-for="card of creditCards">
                         <div class="card-inner-ext">
                             <div class="front-ext" :class="{
@@ -179,14 +181,17 @@
                             </div>
                         </div>
 
-                        <!-- <button @click="">eliminar tarjeta</button> -->
+                    
                               
 
                         <div v-if="card.thruDate < currentDate.toLocaleDateString()" class="expired__card">
                             <button>Tarjeta vencida</button>
                         </div>
 
+                        <button type="button" class="btn btn-danger " @click="deleteCard(card.number)">delete Card</button>
                     </div>
+
+                  
 
                     <br>
                 </div>
@@ -194,7 +199,7 @@
             </div>
 
          <div class="center__div">
-              <a v-if="cards.length < 6" type="button" class="btn btn-primary create__card" href="create-cards.html">create card</a>
+              <a v-if="cards.length < 6" type="button" class="btn create__card" href="create-cards.html">create card</a>
         </div>
         
     </main>

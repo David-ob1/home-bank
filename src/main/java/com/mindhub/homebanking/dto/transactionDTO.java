@@ -17,6 +17,8 @@ public class transactionDTO {
 
     private Double balance;
 
+    private  Boolean active;
+
 
     public transactionDTO(Transaction transaction){
         id = transaction.getId();
@@ -25,6 +27,7 @@ public class transactionDTO {
         description = transaction.getDescription();
         date = transaction.getDate();
         balance = transaction.getCurrentBalance();
+        active = transaction.getActive();
 
     }
 
@@ -50,5 +53,8 @@ public class transactionDTO {
 
     public Double getBalance() {
         return balance;
+    }
+    public Boolean getActive() {
+        return active;
     }
 }

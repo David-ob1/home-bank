@@ -11,23 +11,31 @@ public class AccountUtils {
     private static AccountService accountService;
 
 
-    public static String generateNumberA(long min, long max) {
 
-        String aux = "VIN-";
-        int numberOfDigits = 8;
-        String formatString = "%0" + numberOfDigits + "d";
+    public static String generateNumberA() {
 
-        //expreso el numero en el formato deseado  //numeros como maximo 8 d
-        long number;
+        String number = "VIN";
+        return number + CardUtils.generateRandomNumber(100, 999999999);
+//        long number = (int) ((Math.random() * (99999999 - 100)) + 100);
 
-        String numberCompleted;
-        do{
-            number = ThreadLocalRandom.current().nextLong(min, max);
-            numberCompleted = aux +String.format(formatString,number);
-        }
-        while(accountService.existsAccountByNumber(numberCompleted));
-        return numberCompleted;
     }
+
+
+//    public static String generateNumberA(long min, long max) {
+//
+//        String aux = "VIN-";
+//        int numberOfDigits = 8;
+//        String formatString = "%0" + numberOfDigits + "d";
+//        //expreso el numero en el formato deseado  //numeros como maximo 8 d
+//        long number;
+//        String numberCompleted;
+//
+//        number = ThreadLocalRandom.current().nextLong(min, max);
+//        numberCompleted = aux +String.format(formatString,number);
+//
+//
+//        return numberCompleted;
+//    }
 
 
 }

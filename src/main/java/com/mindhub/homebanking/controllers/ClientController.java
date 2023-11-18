@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static com.mindhub.homebanking.models.AccountType.SAVING;
 import static com.mindhub.homebanking.utils.AccountUtils.generateNumberA;
 
 @RestController
@@ -85,7 +86,7 @@ public class ClientController {
 
         Client client = new Client(name, lastName, email, passwordEncoder.encode(password));
         clientService.saveClient(client);
-        Account account = new Account(generateNumberA(1l,100000000l), LocalDate.now(),0);
+        Account account = new Account(generateNumberA(), LocalDate.now(),0,true,SAVING);
         client.addAccount(account);
         accountService.saveAccount(account);
 

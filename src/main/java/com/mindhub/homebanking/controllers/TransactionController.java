@@ -101,8 +101,8 @@ public class TransactionController {
 
 
         // son 2 pasa de uno a otro
-        Transaction transaction1 = new Transaction(TransactionType.DEBIT,(-amount),accountDebit.getNumber() + description,dateTime(),accountDebit.getBalance() - amount );
-        Transaction transaction2 = new Transaction(TransactionType.CREDIT,amount, accountCredit.getNumber() + description,dateTime(),accountCredit.getBalance() + amount );
+        Transaction transaction1 = new Transaction(TransactionType.DEBIT,(-amount),accountDebit.getNumber() + description,dateTime(),accountDebit.getBalance() - amount,true);
+        Transaction transaction2 = new Transaction(TransactionType.CREDIT,amount, accountCredit.getNumber() + description,dateTime(),accountCredit.getBalance() + amount,true);
 
         //guardo las transaction 1 y 2 tanto en el repository como en las cuentas
         transactionService.saveTransaction(transaction1);

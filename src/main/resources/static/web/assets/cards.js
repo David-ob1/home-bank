@@ -36,12 +36,12 @@ const { createApp } = Vue
 
         this.cards = this.client.cards
         console.log(this.cards)
-
         this.debitCards = this.cards.filter(card => card.type == "DEBIT")
         this.creditCards =  this.cards.filter(card => card.type == "CREDIT")
 
        
      })
+     .catch(error => console.log(error))
     },
     methods:{
       clientLogOut(){
@@ -52,8 +52,13 @@ const { createApp } = Vue
                })
            },
 
-           deleteCard(){
+           deleteCard(number){
             
+            axios.patch("/api/clients/current/cards", `cardNumber=${number}`)
+             .then( location.href = "cards.html" ) 
+             .catch(error => console.log(error))
+
+  
            }
      
      

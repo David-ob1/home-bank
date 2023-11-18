@@ -19,6 +19,8 @@ public class Loan {
 
     private double maxAmount;
 
+    private  Double interest;
+
     @ElementCollection
     private List<Integer> payments;
 
@@ -31,10 +33,12 @@ public class Loan {
 
     }
 
-    public Loan(String name, double maxAmount, List<Integer> payments) {
+    public Loan(String name, double maxAmount, List<Integer> payments,Double interest) {
         this.name = name;
         this.maxAmount = maxAmount;
         this.payments = payments;
+        this.interest = interest;
+
     }
 
 
@@ -78,7 +82,13 @@ public class Loan {
         return clientLoans.stream().map(clientLoan -> clientLoan.getClient()).collect(Collectors.toList());
     }
 
+    public Double getInterest() {
+        return interest;
+    }
 
+    public void setInterest(Double interest) {
+        this.interest = interest;
+    }
 
     @Override
     public String toString() {

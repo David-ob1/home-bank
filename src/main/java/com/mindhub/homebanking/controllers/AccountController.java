@@ -3,11 +3,14 @@ package com.mindhub.homebanking.controllers;
 import com.mindhub.homebanking.dto.AccountDTO;
 import com.mindhub.homebanking.dto.ClientDTO;
 import com.mindhub.homebanking.models.Account;
+import com.mindhub.homebanking.models.AccountType;
+import com.mindhub.homebanking.models.Card;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
 import com.mindhub.homebanking.services.AccountService;
 import com.mindhub.homebanking.services.ClientService;
+import com.mindhub.homebanking.utils.AccountUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +25,8 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static com.mindhub.homebanking.models.AccountType.CURRENT;
+import static com.mindhub.homebanking.models.AccountType.SAVING;
 import static com.mindhub.homebanking.utils.AccountUtils.generateNumberA;
 
 
@@ -88,7 +93,7 @@ public class AccountController {
 
 
     @PostMapping("/clients/current/accounts")
-    public ResponseEntity<Object> createAccount(Authentication authentication){
+    public ResponseEntity<Object> createAccount(Authentication authentication, @RequestParam AccountType accountType){
         Client client = clientService.findClientByEmail(authentication.getName());
 
 
@@ -97,7 +102,8 @@ public class AccountController {
         }                                                      //solo el ultimo no incluye
 
 
-        Account accountCAuten = new Account(generateNumberA(1l,100000000l), LocalDate.now(),0);
+//        Account accountCAuten = new Account(generateNumberA(1l,100000000l), LocalDate.now(),0,true,accountType);
+        Account accountCAuten = new Account(generateNumberA(), LocalDate.now(),0,true,accountType);
         client.addAccount(accountCAuten);
         accountService.saveAccount(accountCAuten);
         clientService.saveClient(client);
@@ -107,6 +113,51 @@ public class AccountController {
     }
 
 
+    @PatchMapping("/clients/current/accounts")
+    public ResponseEntity<?> removeAccount(Authentication authentication, @RequestParam Long accountId){
+
+        String email = authentication.getName();
+        Client client = clientService.findClientByEmail(email);
+        Account account = accountService.findAccountById(accountId);
+
+
+        if(!clientService.existsClientByEmail(email)){
+            return new ResponseEntity<>("the client don't exist ", HttpStatus.CONFLICT);
+        }
+
+        if(account == null){
+            return new ResponseEntity<>("the account don't exist",HttpStatus.CONFLICT);
+        }
+
+        if (account.getBalance() != 0){
+            return new ResponseEntity<>("You cannot delete an account with a balance greater than zero",HttpStatus.FORBIDDEN);
+        }
+
+        if (!account.getClient().equals(client)) {
+            return new ResponseEntity<>("The account doesn't belong to the authenticated client",
+                    HttpStatus.FORBIDDEN);
+        }
+
+
+        account.setActive(false);
+        account.getTransaction().forEach(transaction -> transaction.setActive(false));
+        accountService.saveAccount(account);
+
+
+        return  new ResponseEntity<>("the card was removed for you account",HttpStatus.CREATED);
+
+    }
+
+
+
+
+    public String checkAccountNumber(){
+        String numberGenerated;
+        do{
+            numberGenerated = AccountUtils.generateNumberA();
+        }while(accountService.existsAccountByNumber(numberGenerated));
+        return numberGenerated;
+    }
 
 
 //    @PostMapping("/clients/current/accounts")

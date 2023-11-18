@@ -22,6 +22,9 @@ public interface CardService  {
 
     public Card findCardByNumber( String cardNumber);
 
+//    public Boolean existByNumberAndClient();
+
+    public  Boolean existByNumber (String cardNumber);
     public void saveCard(Card card);
 
     interface loanService {
