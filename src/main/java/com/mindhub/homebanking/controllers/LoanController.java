@@ -76,6 +76,10 @@ public class LoanController {
         if(loan == null){
             return new ResponseEntity<>("The loan doesn´t exist", HttpStatus.FORBIDDEN);
         }
+
+
+
+
         if (loanApplicationDTO.getAmount() > loan.getMaxAmount()){
             return new ResponseEntity<>("The requested amount exceeds the maximum loan amount", HttpStatus.FORBIDDEN);
         }

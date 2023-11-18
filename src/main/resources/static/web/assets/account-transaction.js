@@ -45,7 +45,14 @@ const { createApp } = Vue
                    console.log("sign out!")
                    location.href ="login.html"
                })
-           }
+           },
+
+          dateFormat(dateString){
+            const date = new Date(dateString);
+            const formatOptions = {years: 'numeric',month: '2-digit',day:'2-digit'};
+            return date.toLocaleDateString('es-ES',formatOptions)
+
+          }
      
      
          }
