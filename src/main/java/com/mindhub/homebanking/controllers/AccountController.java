@@ -150,7 +150,6 @@ public class AccountController {
 
 
 
-
     public String checkAccountNumber(){
         String numberGenerated;
         do{

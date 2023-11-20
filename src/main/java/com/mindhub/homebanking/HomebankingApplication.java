@@ -80,13 +80,13 @@ public class HomebankingApplication {	//esto es el main donde se trabaja
 ////			transactionRepository.save(transactionC1C);
 //
 //
-//			List<Integer> paymentMortgage = List.of(12,24,36,48,60);
-//			List<Integer> paymentPersonal = List.of(6,12,24);
-//			List<Integer> paymentAutomotive = List.of(6,12,24,36);
-//
-//			Loan loanA = new Loan("Mortgage",500000, paymentMortgage,0.8);
-//			Loan loanB = new Loan("Personal",100000, paymentPersonal,0.5);
-//			Loan loanC = new Loan("Automotive",300000, paymentAutomotive,0.3);
+			List<Integer> paymentMortgage = List.of(12,24,36,48,60);
+			List<Integer> paymentPersonal = List.of(6,12,24);
+			List<Integer> paymentAutomotive = List.of(6,12,24,36);
+
+			Loan loanA = new Loan("Mortgage",500000, paymentMortgage,0.8);
+			Loan loanB = new Loan("Personal",100000, paymentPersonal,0.5);
+			Loan loanC = new Loan("Automotive",300000, paymentAutomotive,0.3);
 //
 //			loanRepository.save(loanA);
 //			loanRepository.save(loanB);

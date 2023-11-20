@@ -520,6 +520,15 @@ height: 3.5rem;
     color: white;
 
 }
+.modal-content{
+    color: #252525;
+}
+.btn__modal{
+display: flex;
+justify-content: center;
+gap: 1rem;
+
+}
 
 
 .cross__card{

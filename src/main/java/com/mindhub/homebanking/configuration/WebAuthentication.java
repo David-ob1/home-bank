@@ -35,10 +35,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
     
                 }
 
-                if(client.getEmail().equals("guilleaquino@gmail.com")){
-                    return new User(client.getEmail(), client.getPassword(),
-                            AuthorityUtils.createAuthorityList("ADMIN"));
-                }
+//                if(client.getEmail().equals("guilleaquino@gmail.com")){
+//                    return new User(client.getEmail(), client.getPassword(),
+//                            AuthorityUtils.createAuthorityList("ADMIN"));
+//                }
 
                 return new User(client.getEmail(), client.getPassword(),
                         AuthorityUtils.createAuthorityList("CLIENT"));

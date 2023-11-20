@@ -110,9 +110,28 @@
             </div>
           </div>
 
-         
-          <button v-if="accounts.length < 3" class="btn__crateAcc" @click="createAccount">create Account</button>
+          <!-- <button v-if="accounts.length < 3" class="btn__crateAcc" @click="createAccount">create Account</button> -->
+          <button v-if="accounts.length < 3" class="btn__crateAcc" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >create Account</button>
           
+
+          <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2 class="modal-title fs-5" id="staticBackdropLabel">select type of account</h2>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <p>Please select the type of account you want to create</p>
+                </div>
+                <div class="modal-footer btn__modal">
+                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="createAccount('SAVING')">savings account</button>
+                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="createAccount('CURRENT')">current account</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
 
        
         </div>

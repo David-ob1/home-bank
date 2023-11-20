@@ -43,7 +43,12 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="./transfers.html">transfer</a>
                             </li>
-    
+                            
+                            
+                        <li v-if="userName.includes('mindbro')" class="nav-item">
+                            <a class="nav-link" href="./loan-application.html">create Loan</a>
+                        </li>
+
     
                             <li class="nav-item">
                                 <a class="nav-link" href="login.html">Quit</a>
@@ -59,16 +64,16 @@
 
         <main class="flex-grow-1">
           
-
+            <div class="form__box login__page">
             
-            <div class="formulario">
+                <div class="formulario">
                 <h1>apply for a loan</h1>
                 <form method="post">
                     
                     
 
 
-                <div class="form__input-box">
+                <div class="form__input-box loan__page"  >
                     <h5>Select loan</h5>
                      <select v-model="loanId" class="source__acount">
                         <option v-for="payment of paymentMethods" :value="payment.id">{{payment.name}} max Amount (${{payment.maxAmount}})</option>
@@ -76,8 +81,9 @@
 
                     </div>
 
+                    <br>
 
-                    <div class="form__input-box">
+                    <div class="form__input-box loan__page">
                         <h5>source account</h5>
                 
                         <select v-model="accountDestiny" class="source__acount">
@@ -86,19 +92,21 @@
 
                     </div>
 
+                    <br>
 
-                    <div class="form__input-box">
+                    <div class="form__input-box loan__page">
                         <h5>Amount</h5>
                         $<input type="text" class="source__acount" v-model="amount">
                         
 
                     </div>
+        
+                    <br>
 
-
-                    <div class="form__input-box">
+                    <div v-if="loanId" class="form__input-box loan__page ">
                     
                         <h5>Payment</h5>
-                        <select v-if="loanId" v-model="dues" class="source__acount">
+                        <select  v-model="dues" class="source__acount">
                             <option v-for="payment in paymentMethods.find(loan => loan.id === loanId).payments" :value="payment">{{payment}}</option>
                         </select>                            
                     </div>
@@ -110,7 +118,8 @@
                     </div>
 
 
-           
+                    <br>
+             
             <input type="button" @click="applyLoan" value="apply Loan">
               
                     <div class="registrarse">
@@ -121,7 +130,7 @@
         </div>
 
 
-
+        </div>
         </main>
 
     <footer class="main__footer">

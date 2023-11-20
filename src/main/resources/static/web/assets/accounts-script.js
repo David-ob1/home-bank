@@ -5,7 +5,8 @@ const { createApp } = Vue
       return {
         accounts:[],
         client:{},
-        loans:[]
+        loans:[],
+        accountType:"",
       
       }
     },
@@ -37,8 +38,8 @@ const { createApp } = Vue
           }).catch(error => console.log(error))
       },
 
-      createAccount(){
-        axios.post("/api/clients/current/accounts")
+      createAccount(account){
+        axios.post("/api/clients/current/accounts",`accountType=${account}`)
         .then(response =>{
           this.getData()
        }

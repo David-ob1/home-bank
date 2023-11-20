@@ -130,7 +130,7 @@
 
             <div class="d-flex flex-column  align-items-center w-100">
                 <h3 class="h3-cards">Credit Cards</h3>
-                <div class="container-ext d-flex justify-content-around cards__credits">
+                <di v-if="debitCards.length > 0" class="container-ext d-flex justify-content-around cards__credits">
                     <div v-if="creditCards.length !== 0" class="card-ext" v-for="card of creditCards">
                         <div class="card-inner-ext">
                             <div class="front-ext" :class="{

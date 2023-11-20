@@ -25,8 +25,15 @@ public class WebAuthorization{
                 .antMatchers("/web/login.html","/web/assets/form.css","/web/assets/login.js").permitAll()
             .antMatchers("/web/assets/register.js").permitAll()
             .antMatchers(HttpMethod.POST,"/api/clients").permitAll()
+                .antMatchers("/web/register.html").permitAll()
 
-            .antMatchers("/web/register.html").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/newLoan").hasAuthority("ADMIN")
+                .antMatchers("/api/clients").hasAuthority("ADMIN")
+
+
+                .antMatchers("/rest/**").hasAuthority("ADMIN")
+
+
 
             .antMatchers("/web/accounts.html","/web/assets/**").hasAuthority("CLIENT")
             .antMatchers("/web/account.html","/web/cards.html").hasAuthority("CLIENT")
@@ -37,12 +44,12 @@ public class WebAuthorization{
             .antMatchers("/api/loans").hasAuthority("CLIENT")
                 //api/clients/current/transfer
             .antMatchers("/api/clients/current/**").hasAuthority("CLIENT")
-            .antMatchers("/api/clients").hasAuthority("ADMIN")
+
+            .antMatchers("/web/**").authenticated()
 
 
 
 
-            .antMatchers("/rest/**").hasAuthority("ADMIN")
          //   .antMatchers("/api/**").hasAuthority("ADMIN")
            .anyRequest().denyAll();
 

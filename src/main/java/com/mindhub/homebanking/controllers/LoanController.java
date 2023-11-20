@@ -2,6 +2,7 @@ package com.mindhub.homebanking.controllers;
 
 import com.mindhub.homebanking.dto.LoanApplicationDTO;
 import com.mindhub.homebanking.dto.LoanDTO;
+import com.mindhub.homebanking.dto.NewLoanApplicationDTO;
 import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,8 +99,9 @@ public class LoanController {
 
 
         Double interest = loan.getInterest();
+        Double currentAmount = loanApplicationDTO.getAmount();
 
-        ClientLoan clientLoan = new ClientLoan(loanApplicationDTO.getAmount() * (1 + interest) ,
+        ClientLoan clientLoan = new ClientLoan( currentAmount * (1 + interest),loanApplicationDTO.getPayments(),currentAmount,
                 loanApplicationDTO.getPayments());
 
         client.addClientLoan(clientLoan);
@@ -117,7 +119,93 @@ public class LoanController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+        @PostMapping("/newLoan")
+        public ResponseEntity<String> createLoansType(@RequestBody NewLoanApplicationDTO newLoanApplicationDTO){
 
+        if( newLoanApplicationDTO.getNameLoan().isBlank()){
+            return new ResponseEntity<>("the Loans name is void ",HttpStatus.FORBIDDEN);
+        }
+
+        if(newLoanApplicationDTO.getPaymets().isEmpty()){
+            return new ResponseEntity<>("the payments are empty",HttpStatus.FORBIDDEN);
+        }
+
+        if(newLoanApplicationDTO.getPaymets().stream().allMatch(payment -> payment<= 0)){
+            return new ResponseEntity<>("the payments are invalid ",HttpStatus.FORBIDDEN);
+        }
+
+        if(newLoanApplicationDTO.getAmountMax() <= 0.0){
+            return new ResponseEntity<>("the max mount is invalid",HttpStatus.FORBIDDEN);
+        }
+
+
+        if(newLoanApplicationDTO.getInterest() <= 0.0){
+            return new ResponseEntity<>("the payments are empty",HttpStatus.FORBIDDEN);
+        }
+
+        Loan loan = new Loan(newLoanApplicationDTO.getNameLoan(), newLoanApplicationDTO.getAmountMax(),newLoanApplicationDTO.getPaymets(), newLoanApplicationDTO.getInterest());
+        loanService.saveLoan(loan);
+
+
+        return new ResponseEntity<>(HttpStatus.CREATED);
+
+    }
+
+
+    @Transactional
+    @PostMapping("/loans/payments")
+    public ResponseEntity<Object> payLoan(Authentication authentication, @RequestParam long idLoan , @RequestParam long idAccount ,
+                                          @RequestParam Double amount){
+
+        Client client = clientService.findClientByEmail(authentication.getName());
+        ClientLoan clientLoan = clientLoanService.findById(idLoan);
+        Account account = accountService.findAccountById(idAccount);
+
+        String loan = clientLoan.getLoan().getName();
+
+        double installmentValue = clientLoan.getAmount() / clientLoan.getPayments();
+        double roundedInstallmentValue = Math.round(installmentValue * 100.0) / 100.0;
+
+
+        if (!clientLoan.getClient().equals(client)){
+            return new ResponseEntity<>("The loan doesn't belong to the authenticated client",
+                    HttpStatus.FORBIDDEN);
+        }
+        if (account == null) {
+            return new ResponseEntity<>("The account doesn´t exist",HttpStatus.FORBIDDEN);
+        }
+
+        if (!account.getClient().equals(client)){
+            return new ResponseEntity<>("The account doesn't belong to the authenticated client",HttpStatus.FORBIDDEN);
+        }
+        if (amount != roundedInstallmentValue){
+            return new ResponseEntity<>("The amount entered does not correspond to the payment of 1 installment. Your amount to pay is US$ " + roundedInstallmentValue,
+                    HttpStatus.FORBIDDEN);
+        }
+//        if (amount == 0) {
+//            return new ResponseEntity<>("Amount is required",HttpStatus.FORBIDDEN);
+//        }
+        if (amount <= 0){
+            return new ResponseEntity<>("The amount cannot be zero or negative",HttpStatus.FORBIDDEN);
+        }
+        if (account.getBalance() < amount) {
+            return new ResponseEntity<>("Your funds are insufficient",HttpStatus.FORBIDDEN);
+        }
+
+        double currentBalanceAccountDebit = account.getBalance() - amount;
+        Transaction transaction = new Transaction(TransactionType.DEBIT,amount,"Canceled fee " + loan + " loan",LocalDateTime.now(),currentBalanceAccountDebit,true);
+
+
+
+        clientLoan.setCurrentAmount(clientLoan.getCurrentAmount()-amount);
+        clientLoan.setCurrentPayments(clientLoan.getCurrentPayments()-1);
+        account.setBalance(account.getBalance()-amount);
+        account.addTransaction(transaction);
+        clientLoanService.saveClientLoan(clientLoan);
+        transactionService.saveTransaction(transaction);
+        accountService.saveAccount(account);
+        return new ResponseEntity<>("Payment made successfully",HttpStatus.CREATED);
+    }
 
 
 

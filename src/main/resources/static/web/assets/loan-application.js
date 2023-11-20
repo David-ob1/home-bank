@@ -3,6 +3,7 @@ const { createApp } = Vue
 createApp({
   data() {
     return {
+      userName:"",
       accounts:{},
       paymentMethods:{},
       loanSelected:0,
@@ -21,9 +22,11 @@ createApp({
 
   
     created() {
-        axios.get("/api/clients/current/accounts")
+        axios.get("/api/clients/current")
             .then(response => {
-                this.accounts = response.data;
+              console.log(response)
+                this.userName = response.data.email;
+                this.accounts = response.data.accounts;
                 console.log(this.accounts)
 
                 
@@ -32,6 +35,8 @@ createApp({
               
                 console.log(error);
             });
+
+
 
 
             axios.get("/api/loans")

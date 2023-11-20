@@ -14,16 +14,16 @@
 
 
 .formulario{
-	/* position: absolute;
-	top:50%;
-	left: 50%;
-	transform: translate(-50%,-50%); */
-	width: 400px;
 
+	width: 400px;
 	background: white;
 	border-radius: 10px;
 	box-shadow: 0px 0px  6px 3px #252525;
 	
+}
+.loan__page{
+	display: flex;
+	justify-content: space-around;
 }
 
 .register__form{
@@ -40,7 +40,7 @@
 
 
 .formulario form{
-
+	color: #252525;
 	padding: 0 40px;
 	box-shadow: border-box;
 
@@ -190,6 +190,16 @@ input[type="button"]:hover{
 
 }
 
+.createLoan__page{
+	justify-content:end;
+	background:url("./img/createloan.jpg");
+	background-size: contain;
+	background-repeat:no-repeat ;
+	background-color: white;
+	background-position: left;
+
+}
+
 .form__input-box > p{
 	margin: 0;
 }
@@ -269,6 +279,8 @@ input[type="button"]:hover{
 	font-size:17px;
 }
 
+
+
 } 
 
 
@@ -292,8 +304,6 @@ input[type="button"]:hover{
 .formulario h5{
 	font-size:17px;
 }
-
-
 
 } 
 
@@ -319,9 +329,7 @@ input[type="button"]:hover{
 }
 
 
-
 } 
 
 
 
-	
