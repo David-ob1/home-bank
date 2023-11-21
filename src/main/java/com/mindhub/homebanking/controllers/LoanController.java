@@ -99,9 +99,11 @@ public class LoanController {
 
 
         Double interest = loan.getInterest();
-        Double currentAmount = loanApplicationDTO.getAmount();
-
-        ClientLoan clientLoan = new ClientLoan( currentAmount * (1 + interest),loanApplicationDTO.getPayments(),currentAmount,
+        Double amount = loanApplicationDTO.getAmount() + interest;
+        Double currentAmount = amount;
+//        Double currentAmount = loanApplicationDTO.getAmount();
+        
+            ClientLoan clientLoan = new ClientLoan( amount,loanApplicationDTO.getPayments(),currentAmount,
                 loanApplicationDTO.getPayments());
 
         client.addClientLoan(clientLoan);

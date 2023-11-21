@@ -68,7 +68,47 @@ const { createApp } = Vue
        }).catch(error => console.log(error))
 
 
-      }
+      },
+
+      deleteAccount(id) {
+        Swal.fire({
+            title: 'Do you want to delete account?',
+            text: 'This action cannot be reversed',
+            showCancelButton: true,
+            cancelButtonText: 'Cancell',
+            confirmButtonText: 'Yes',
+            confirmButtonColor: '#28a745',
+            cancelButtonColor: '#dc3545',
+            showClass: {
+              popup: 'swal2-noanimation',
+              backdrop: 'swal2-noanimation'
+            },
+            hideClass: {
+              popup: '',
+              backdrop: ''
+        }, preConfirm: () => {
+        axios.patch(`/api/clients/current/accounts`, `id=${id}`)
+            .then(() => {
+                Swal.fire({
+                    title: "Successfully delete account",
+                    icon: "success",
+                    confirmButtonColor: "#3085d6",
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.href  = `accounts.html`;
+                    }
+                  });    
+            })
+            .catch(error => {
+                Swal.fire({
+                  icon: 'error',
+                  text: error.response.data,
+                  confirmButtonColor: "#7c601893",
+                });
+        });
+        },
+    })
+}
 
 
     }

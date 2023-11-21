@@ -120,7 +120,7 @@ public class Client {
     @JsonIgnore
     public List<Loan> getLoans() {
         return clientLoans.stream().map(loans -> loans.getLoan()).collect(Collectors.toList());
-    }
+        }
 
     public String getPassword() {
         return password;

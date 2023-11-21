@@ -90,6 +90,9 @@ public class Loan {
         this.interest = interest;
     }
 
+
+
+
     @Override
     public String toString() {
         return "Loan{" +

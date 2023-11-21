@@ -95,8 +95,10 @@
               <div class="col-md-8">
                 <div class="card-body">
                   <h5 class="card-title number__account">{{account.number}}</h5>
+
                   <p class="card-text ">amount:<span class="user__amount"> ${{account.balance}}</span></p>
-                
+                  <p class="card-text "><span class="user__amount"> ${{account.balance}}</span></p>
+                  
                   <small class="text-body-secondary">  
                     
                       <div class="details__card">
@@ -144,14 +146,17 @@
                     <th scope="col">Type loan</th>
                     <th scope="col">Amount</th>
                     <th scope="col">Payments</th>
+                    <th scope="col">currentAmount</th>
+                    <th scope="col">currentPayments </th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="loan of loans">
                     <td>{{loan.name}}</td>
-                    <td>${{new
-                        Intl.NumberFormat("de-DE").format(loan.amount)}}</td>
+                    <td>${{new Intl.NumberFormat("de-DE").format(loan.amount)}}</td>
                     <td>{{loan.payment}}</td>
+                    <td>{{loan.currentAmount}}</td>
+                    <td>{{loan.currentPayments}}</td>
                 </tr>
             </tbody>
         </table>

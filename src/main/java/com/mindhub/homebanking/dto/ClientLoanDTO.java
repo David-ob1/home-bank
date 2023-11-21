@@ -12,6 +12,9 @@ public class ClientLoanDTO {
 
     private int payment;
 
+    private Double currentAmount;
+    private int currentPayments;
+
     //metodos o comportamientos
 
     public ClientLoanDTO(ClientLoan clientLoan) {
@@ -20,6 +23,8 @@ public class ClientLoanDTO {
         name = clientLoan.getLoan().getName();
         amount = clientLoan.getAmount();
         payment = clientLoan.getPayments();
+        currentAmount = clientLoan.getCurrentAmount();
+        currentPayments = clientLoan.getCurrentPayments();
     }
 
 
@@ -43,6 +48,11 @@ public class ClientLoanDTO {
         return payment;
     }
 
+    public Double getCurrentAmount() {
+        return currentAmount;
+    }
 
-
+    public int getCurrentPayments() {
+        return currentPayments;
+    }
 }

@@ -23,6 +23,7 @@ public class WebAuthorization{
 
                 .antMatchers("/web/index.html","/web/assets/bank.css","/web/assets/img/**").permitAll()
                 .antMatchers("/web/login.html","/web/assets/form.css","/web/assets/login.js").permitAll()
+                .antMatchers("/api/login").permitAll()
             .antMatchers("/web/assets/register.js").permitAll()
             .antMatchers(HttpMethod.POST,"/api/clients").permitAll()
                 .antMatchers("/web/register.html").permitAll()
@@ -39,7 +40,7 @@ public class WebAuthorization{
             .antMatchers("/web/account.html","/web/cards.html").hasAuthority("CLIENT")
             .antMatchers("/web/cards.html","/web/create-cards.html").hasAuthority("CLIENT")
             .antMatchers("/web/transfers.html" ).hasAuthority("CLIENT")
-            .antMatchers(HttpMethod.POST, "/api/clients/current/transfer").hasAuthority("CLIENT")
+            .antMatchers(HttpMethod.POST, "/api/clients/current/transfer","/api/loans/payments").hasAuthority("CLIENT")
             .antMatchers("/web/loan-application.html","/web/loan-application.js").hasAuthority("CLIENT")
             .antMatchers("/api/loans").hasAuthority("CLIENT")
                 //api/clients/current/transfer
