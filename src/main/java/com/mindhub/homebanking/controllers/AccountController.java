@@ -97,10 +97,9 @@ public class AccountController {
         Client client = clientService.findClientByEmail(authentication.getName());
 
 
-        if( client.getAccounts().size() >= 3){
-            return new ResponseEntity<>("you already has 3 account" , HttpStatus.FORBIDDEN);
-        }                                                      //solo el ultimo no incluye
-
+//        if( client.getAccounts().size() >= 3){
+//            return new ResponseEntity<>("you already has 3 account" , HttpStatus.FORBIDDEN);
+//        }                                                      //solo el ultimo no incluye
 
 //        Account accountCAuten = new Account(generateNumberA(1l,100000000l), LocalDate.now(),0,true,accountType);
         Account accountCAuten = new Account(generateNumberA(), LocalDate.now(),0,true,accountType);
@@ -113,7 +112,7 @@ public class AccountController {
     }
 
 
-    @PatchMapping("/clients/current/accounts")
+        @PatchMapping("/clients/current/accounts")
     public ResponseEntity<?> removeAccount(Authentication authentication, @RequestParam Long accountId){
 
         String email = authentication.getName();

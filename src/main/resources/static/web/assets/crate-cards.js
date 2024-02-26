@@ -12,11 +12,7 @@ createApp({
   methods:{
       
 
-    
           createCard(){
-
-
-
 
             Swal.fire({
               title: "Are you sure?",

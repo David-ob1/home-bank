@@ -32,7 +32,6 @@ public class LoanController {
 
 
 
-
     @GetMapping("/loans")
     public ResponseEntity<List<LoanDTO>> getAllLoans(Authentication authentication) {
         Client client = clientService.findClientByEmail(authentication.getName());
@@ -54,10 +53,15 @@ public class LoanController {
         Account account = accountService.findAccountByNumber(loanApplicationDTO.getDestinationAccount());
 
 
-        if (client == null) {
-            return new ResponseEntity<>("Unknow client " + authentication.getName(),
-                    HttpStatus.UNAUTHORIZED);
+        if (!client.getAccounts().contains(account)){
+            return new ResponseEntity<>("The destination account doesn´t belong to the authenticated client", HttpStatus.FORBIDDEN);
         }
+
+        if (loan.getClient().contains(client)){
+            return new ResponseEntity<>("You have already applied for this loan", HttpStatus.FORBIDDEN);
+        }
+
+
         if (loanApplicationDTO.getIdLoan() == 0) {
             return new ResponseEntity<>("The type of loan is required", HttpStatus.FORBIDDEN);
         }
@@ -78,31 +82,20 @@ public class LoanController {
             return new ResponseEntity<>("The loan doesn´t exist", HttpStatus.FORBIDDEN);
         }
 
-
+        if (!loan.getPayments().contains(loanApplicationDTO.getPayments())){
+            return new ResponseEntity<>("The amount of payments is incorrect", HttpStatus.FORBIDDEN);
+        }
 
 
         if (loanApplicationDTO.getAmount() > loan.getMaxAmount()){
             return new ResponseEntity<>("The requested amount exceeds the maximum loan amount", HttpStatus.FORBIDDEN);
         }
-        if (!loan.getPayments().contains(loanApplicationDTO.getPayments())){
-            return new ResponseEntity<>("The amount of payments is incorrect", HttpStatus.FORBIDDEN);
-        }
-        if (account == null){
-            return new ResponseEntity<>("The destination account doesn´t exist", HttpStatus.FORBIDDEN);
-        }
-        if (!client.getAccounts().contains(account)){
-            return new ResponseEntity<>("The destination account doesn´t belong to the authenticated client", HttpStatus.FORBIDDEN);
-        }
-        if (loan.getClient().contains(client)){
-            return new ResponseEntity<>("You have already applied for this loan", HttpStatus.FORBIDDEN);
-        }
-
 
         Double interest = loan.getInterest();
-        Double amount = loanApplicationDTO.getAmount() + interest;
+        Double amount = loanApplicationDTO.getAmount()  *  interest;
         Double currentAmount = amount;
-//        Double currentAmount = loanApplicationDTO.getAmount();
-        
+
+
             ClientLoan clientLoan = new ClientLoan( amount,loanApplicationDTO.getPayments(),currentAmount,
                 loanApplicationDTO.getPayments());
 
@@ -161,8 +154,7 @@ public class LoanController {
 
         Client client = clientService.findClientByEmail(authentication.getName());
         ClientLoan clientLoan = clientLoanService.findById(idLoan);
-        Account account = accountService.findAccountById(idAccount);
-
+        Account account = accountService.findAccountById(idAccount);    
         String loan = clientLoan.getLoan().getName();
 
         double installmentValue = clientLoan.getAmount() / clientLoan.getPayments();
@@ -184,9 +176,7 @@ public class LoanController {
             return new ResponseEntity<>("The amount entered does not correspond to the payment of 1 installment. Your amount to pay is US$ " + roundedInstallmentValue,
                     HttpStatus.FORBIDDEN);
         }
-//        if (amount == 0) {
-//            return new ResponseEntity<>("Amount is required",HttpStatus.FORBIDDEN);
-//        }
+
         if (amount <= 0){
             return new ResponseEntity<>("The amount cannot be zero or negative",HttpStatus.FORBIDDEN);
         }

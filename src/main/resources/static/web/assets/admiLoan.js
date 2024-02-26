@@ -3,7 +3,7 @@ const { createApp } = Vue
 createApp({
   data() {
     return {
-      paymets:null,
+      payments:[],
       interest:null,
       amountMax:null,
       NameLoan:null,
@@ -28,14 +28,18 @@ createApp({
               nameLoan:this.NameLoan,
               amountMax:this.amountMax,
               interest:this.interest ,      
-              paymets:[this.paymets]
+              paymets:this.payments
         
         }
 
         axios.post("/api/newLoan", loan)
-        .then(
-
-            Swal.fire({
+        .then( 
+          console.log(this.NameLoan),
+          console.log(this.NameLoan),
+          console.log(this.NameLoan),
+          console.log(this.payments),
+          
+          Swal.fire({
                 position: "top-end",
                 icon: "success",
                 title: "Your loan has been saved",

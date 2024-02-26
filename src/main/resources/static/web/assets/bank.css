@@ -16,6 +16,7 @@
 }
 
 .nav-link{
+
     font-size: 20px !important;
 }
 
@@ -30,6 +31,7 @@
 }
 .cards__container{
     margin-top: 2rem;
+    margin-bottom: 0 !important;
     display: flex;
     width: 100%;
     flex-wrap: wrap;

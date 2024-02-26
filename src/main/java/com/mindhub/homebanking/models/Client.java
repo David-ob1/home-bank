@@ -28,7 +28,6 @@ public class Client {
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private Set<Card> cards = new HashSet<>();
 
-
     public Client() {
     }
 
@@ -119,7 +118,7 @@ public class Client {
     }
     @JsonIgnore
     public List<Loan> getLoans() {
-        return clientLoans.stream().map(loans -> loans.getLoan()).collect(Collectors.toList());
+        return clientLoans.stream().map(clientLoans -> clientLoans.getLoan()).collect(Collectors.toList());
         }
 
     public String getPassword() {

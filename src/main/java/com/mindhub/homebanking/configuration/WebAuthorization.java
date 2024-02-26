@@ -55,6 +55,7 @@ public class WebAuthorization{
            .anyRequest().denyAll();
 
         http.formLogin()
+
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .loginPage("/api/login");
@@ -62,6 +63,7 @@ public class WebAuthorization{
         http.logout().logoutUrl("/api/logout").deleteCookies();
 
         //hace q no se pueda completar la solicitud sin el token  pero nostros la desactivamos
+        //Cross-Site Request Forgery
         http.csrf().disable();//no solo form de login
 
             //permite ingresar paginas de 3ros

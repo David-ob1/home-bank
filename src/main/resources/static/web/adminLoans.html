@@ -31,7 +31,7 @@
         <div class="form__box createLoan__page">
             <div class="formulario register__form">
                 <h1>Welcome</h1>
-                <form >
+                <form class="mb-4">
                     
                     <div class="username">
 
@@ -54,20 +54,69 @@
                     </div> 
 
         
-                    <!-- contraseña -->
-                     <div class="username">
-                        <input type="number" v-model="paymets" required>
-                        <label>paymets</label>
-                    </div> 
+                    <div class="check__styles">
+                        <div class="form-check">
+                            <input v-model="payments" id="check1" type="checkbox" value="1">
+                            <label class="form-check-label" for="check1">
+                                1
+                            </label>
+                        </div>
+
+                        <div class="form-check">
+                            <input v-model="payments" id="check2" type="checkbox" value="2">
+                            <label class="form-check-label" for="check2">
+                                2
+                            </label>
+                        </div>
+
+                        <div class="form-check">
+                            <input v-model="payments" id="check4" type="checkbox" value="4">
+                            <label class="form-check-label" for="check4">
+                                4
+                            </label>
+                        </div>
+
+                        <div class="form-check">
+                            <input v-model="payments" id="check8" type="checkbox" value="8">
+                            <label class="form-check-label" for="check8">
+                                8
+                            </label>
+                        </div>
+
+                        <div class="form-check">
+                            <input v-model="payments" id="check16" type="checkbox" value="16">
+                            <label class="form-check-label" for="check16">
+                                16
+                            </label>
+                        </div>
+
+                        <div class="form-check">
+                            <input v-model="payments" id="check32" type="checkbox" value="32">
+                            <label class="form-check-label" for="check32">
+                                32
+                            </label>
+                        </div>
 
 
+                        <div class="form-check">
+                            <input v-model="payments" id="check64" type="checkbox" value="64">
+                            <label class="form-check-label" for="check64">
+                                64
+                            </label>
+                        </div>
+
+                        <div class="form-check">
+                            <input v-model="payments" id="check128" type="checkbox" value="128">
+                            <label class="form-check-label" for="check128">
+                                128
+                            </label>
+                        </div>
+                    </div>
         
-                    <div class="recordar">¿you forgot the password?</div>
+            
                     <input type="button" @click="createLoan" value="Create Loan">
         
-                    <div class="registrarse">
-                       Do you not have an account? <a href="login.html">log in</a>
-                    </div>
+            
         
                 </form>
         </div>

@@ -30,7 +30,6 @@ const { createApp } = Vue
      
       .then(response => {
 
-
         this.client = response.data;
         console.log(this.client)
 
@@ -55,7 +54,33 @@ const { createApp } = Vue
            deleteCard(number){
             
             axios.patch("/api/clients/current/cards", `cardNumber=${number}`)
-             .then( location.href = "cards.html" ) 
+             .then(
+              
+              Swal.fire({
+                title: "the card has been deleted",
+                showClass: {
+                  popup: `
+                    animate__animated
+                    animate__fadeInUp
+                    animate__faster
+                  `
+                },
+                hideClass: {
+                  popup: `
+                    animate__animated
+                    animate__fadeOutDown
+                    animate__faster
+                  `
+                }
+              }),
+              
+              setTimeout(() => {
+                location.href = "cards.html"
+              }, "1000")
+
+
+              
+               ) 
              .catch(error => console.log(error))
 
   

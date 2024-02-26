@@ -87,7 +87,7 @@ public class HomebankingApplication {	//esto es el main donde se trabaja
 			Loan loanA = new Loan("Mortgage",500000, paymentMortgage,0.8);
 			Loan loanB = new Loan("Personal",100000, paymentPersonal,0.5);
 			Loan loanC = new Loan("Automotive",300000, paymentAutomotive,0.3);
-//
+
 			loanRepository.save(loanA);
 			loanRepository.save(loanB);
 			loanRepository.save(loanC);

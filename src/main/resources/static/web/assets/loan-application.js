@@ -43,9 +43,7 @@ createApp({
             .then(responseLoans => {
                 this.paymentMethods = responseLoans.data;
                 console.log("metodos de pagos" + this.paymentMethods)
-
               this.payments = this.paymentMethods.payments
-
 
                 
             })
@@ -53,8 +51,6 @@ createApp({
               
                 console.log(error);
             });
-
-            
 
   },
 
@@ -71,7 +67,19 @@ createApp({
 
           const userData = {"idLoan":`${this.loanId}`,"amount":`${this.amount}`,"payments":`${this.dues}`,"destinationAccount":`${this.accountDestiny}`}
             axios.post(`/api/loans`, userData)
-            .then(() => {location.href = "/web/loan-application.html";})
+            .then(() => 
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "the loan was successful",
+              showConfirmButton: false,
+              timer: 1400
+            }),
+
+            setTimeout(() => {
+              location.href = "/web/loan-application.html"
+            }, 1500)
+            )
             .catch(error => Swal.fire({
               icon: "error",
               title: "Oops...",

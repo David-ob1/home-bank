@@ -40,6 +40,7 @@ createApp({
             })
             .catch(error => {
               
+
                 console.log(error);
             });
 
@@ -80,8 +81,21 @@ createApp({
   axios.post(`/api/loans/payments`, param)
             .then(() => {
 
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "the payment was made successfully",
+                showConfirmButton: false,
+                timer: 1300
+              });
+
+              setTimeout(() => {
+                location.href = "pay-loan.html";
+              }, 1400)
                 
-                location.href = "pay-loan.html";})
+               })
+
+                
             .catch(error => Swal.fire({
               icon: "error",
               title: "Oops...",

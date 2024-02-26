@@ -43,35 +43,29 @@ public class TransactionController {
             @RequestParam double amount, @RequestParam String description,
             @RequestParam String accountOrigin, @RequestParam String accountDestiny){
 
+        Client client = clientService.findClientByEmail(authentication.getName());
+        Account accountDebit = accountService.findAccountByNumber(accountOrigin);
+        Account accountCredit = accountService.findAccountByNumber(accountDestiny);
 
-
-        if(description.isEmpty() || description.isBlank()){
-            return new ResponseEntity<>("the description is not valid,complete it please.", HttpStatus.FORBIDDEN);
-        }
 
         if(accountOrigin.equals(accountDestiny)){
             return new ResponseEntity<>("the accounts must be different", HttpStatus.FORBIDDEN);
         }
 
-//        if(accountOrigin == accountDestiny){
-//            return new ResponseEntity<>("the accounts must be different", HttpStatus.FORBIDDEN);
-//        }
 
-
-        if(accountOrigin.isEmpty() || accountOrigin.isBlank()){
-            return new ResponseEntity<>("the description is not valid,complete it please.", HttpStatus.FORBIDDEN);
-        }
-
-        if(accountDestiny.isEmpty() || accountDestiny.isBlank()){
+        if( description.isBlank()){
             return new ResponseEntity<>("the description is not valid,complete it please.", HttpStatus.FORBIDDEN);
         }
 
 
+        if( accountOrigin.isBlank()){
+            return new ResponseEntity<>("the description is not valid,complete it please.", HttpStatus.FORBIDDEN);
+        }
 
+        if(accountDestiny.isBlank()){
+            return new ResponseEntity<>("the description is not valid,complete it please.", HttpStatus.FORBIDDEN);
+        }
 
-        Client client = clientService.findClientByEmail(authentication.getName());
-        Account accountDebit = accountService.findAccountByNumber(accountOrigin);
-        Account accountCredit = accountService.findAccountByNumber(accountDestiny);
 
 
         if(accountDebit.getBalance() < amount){
@@ -82,20 +76,10 @@ public class TransactionController {
             return new ResponseEntity<>("the origin account doesn't belong to the authenticated client",HttpStatus.FORBIDDEN);
         }
 
-//        if (accountDebit == null){
-//            return new ResponseEntity<>("the origin account doesn't exist", HttpStatus.FORBIDDEN);
-//        }
 
         if (accountCredit == null){
             return new ResponseEntity<>("the destiny account doesn't exist", HttpStatus.FORBIDDEN);
         }
-
-//        if (amount.isNaN()) {
-//                return new ResponseEntity<>("the amount must be a number", HttpStatus.FORBIDDEN);
-//
-//        }
-
-        //account == Authentication
 
 
 

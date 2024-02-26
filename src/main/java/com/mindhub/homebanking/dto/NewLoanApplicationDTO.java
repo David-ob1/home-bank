@@ -11,6 +11,7 @@ public class NewLoanApplicationDTO {
     private List<Integer> paymets;
 
 
+
     public NewLoanApplicationDTO() {
     }
 

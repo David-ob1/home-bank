@@ -41,6 +41,14 @@ const { createApp } = Vue
       createAccount(account){
         axios.post("/api/clients/current/accounts",`accountType=${account}`)
         .then(response =>{
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "the account has been created",
+            showConfirmButton: false,
+            timer: 1500
+          });
+
           this.getData()
        }
           
@@ -65,12 +73,14 @@ const { createApp } = Vue
           console.log(this.accounts)
   
           this.loans = this.client.loans
+          console.log(this.loans)
        }).catch(error => console.log(error))
 
 
       },
 
       deleteAccount(id) {
+        console.log(id)
         Swal.fire({
             title: 'Do you want to delete account?',
             text: 'This action cannot be reversed',
@@ -87,7 +97,8 @@ const { createApp } = Vue
               popup: '',
               backdrop: ''
         }, preConfirm: () => {
-        axios.patch(`/api/clients/current/accounts`, `id=${id}`)
+          console.log(id)
+          axios.patch(`/api/clients/current/accounts`, `accountId=${id}`)
             .then(() => {
                 Swal.fire({
                     title: "Successfully delete account",
@@ -95,11 +106,31 @@ const { createApp } = Vue
                     confirmButtonColor: "#3085d6",
                   }).then((result) => {
                     if (result.isConfirmed) {
+
+                      Swal.fire({
+                        title: "the card has been deleted",
+                        showClass: {
+                          popup: `
+                            animate__animated
+                            animate__fadeInUp
+                            animate__faster
+                          `
+                        },
+                        hideClass: {
+                          popup: `
+                            animate__animated
+                            animate__fadeOutDown
+                            animate__faster
+                          `
+                        }
+                      }),
+                      
                         location.href  = `accounts.html`;
                     }
                   });    
             })
             .catch(error => {
+              console.log(error)
                 Swal.fire({
                   icon: 'error',
                   text: error.response.data,

@@ -22,12 +22,17 @@
 	
 }
 .loan__page{
-	display: flex;
-	justify-content: space-around;
+		display: flex;
+		justify-content: space-around;
 }
 
 .register__form{
 	width: 500px;
+}
+.check__styles{
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 
@@ -192,16 +197,30 @@ input[type="button"]:hover{
 
 .createLoan__page{
 	justify-content:end;
-	background:url("./img/createloan.jpg");
+	background:url("./img/creditImg.jpg");
 	background-size: contain;
 	background-repeat:no-repeat ;
 	background-color: white;
 	background-position: left;
 
 }
+.transaction__page{
+	justify-content:end;
+	background:url("./img/createloan.jpg");
+	background-size: contain;
+	background-repeat:no-repeat ;
+	background-color: white;
+	background-position: left;
+}
+
 
 .form__input-box > p{
 	margin: 0;
+}
+
+.dinamic__inputs{
+	display: flex;
+	justify-content: space-around;
 }
 
 
